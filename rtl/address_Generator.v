@@ -29,19 +29,19 @@ input wire vsync,
 output wire [16:0] address
 );
 
-// horloge de 25 MHz et signal d'activation respectivement
-// adresse genere
+// 25 MHz clock and enable signal respectively
+// generated address
 
 
 
-reg [16:0] val = 1'b0;  // signal intermidiaire
+reg [16:0] val = 1'b0;  // intermediate signal
 
   assign address = val;
-  // adresse genere
+  // generated address
   always @(posedge CLK25) begin
     if((enable == 1'b1)) begin
       if((val < (320 * 240))) begin
-        // si l'espace memoire est balay completement        
+        // if the memory space is completely scanned        
         val <= val + 1;
       end
     end

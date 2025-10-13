@@ -30,10 +30,10 @@ output wire [7:0] G,
 output wire [7:0] B
 );
 
-// niveau de gris du pixels sur 8 bits
-// signal indique les zone d'affichage, hors la zone d'affichage
-// les trois couleurs prendre 0
-// les trois couleurs sur 10 bits
+// pixel grayscale level on 8 bits
+// signal indicates display area, outside the display area
+// the three colors take 0
+// the three colors on 10 bits
 
 
 

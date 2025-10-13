@@ -33,31 +33,31 @@ output reg activeArea,
 output wire Nsync
 );
 
-// Horloge d'entre de 25 MHz              
-// Horloge de sortie vers le ADV7123 et l'ecran TFT
-// les deux signaux de synchronisation pour l'ecran VGA
-// signal de commande du convertisseur N/A ADV7123
-// signaux de synchronisation et commande de l'ecran TFT
+// 25 MHz input clock              
+// Output clock to ADV7123 and TFT screen
+// the two synchronization signals for the VGA screen
+// control signal for the ADV7123 D/A converter
+// synchronization and control signals for the TFT screen
 
 
 
-reg [9:0] Hcnt = 10'b0000000000;  // pour le comptage des colonnes
-reg [9:0] Vcnt = 10'b1000001000;  // pour le comptage des lignes
+reg [9:0] Hcnt = 10'b0000000000;  // for column counting
+reg [9:0] Vcnt = 10'b1000001000;  // for row counting
 wire video;
-parameter HM = 799;  //la taille maximale considere 800 (horizontal)
-parameter HD = 640;  //la taille de l'ecran (horizontal)
-parameter HF = 16;  //front porch
-parameter HB = 48;  //back porch
-parameter HR = 96;  //sync time
-parameter VM = 524;  //la taille maximale considere 525 (vertical)  
-parameter VD = 480;  //la taille de l'ecran (vertical)
-parameter VF = 10;  //front porch
-parameter VB = 33;  //back porch
-parameter VR = 2;  //retrace
+parameter HM = 799;  // maximum size considered 800 (horizontal)
+parameter HD = 640;  // screen size (horizontal)
+parameter HF = 16;   // front porch
+parameter HB = 48;   // back porch
+parameter HR = 96;   // sync time
+parameter VM = 524;  // maximum size considered 525 (vertical)  
+parameter VD = 480;  // screen size (vertical)
+parameter VF = 10;   // front porch
+parameter VB = 33;   // back porch
+parameter VR = 2;    // retrace
 
-  // initialisation d'un compteur de 0 a 799 (800 pixel par ligne):
-  // a chaque front d'horloge en incremente le compteur de colonnes
-  // c-a-d du 0 a 799.
+  // initialization of a counter from 0 to 799 (800 pixels per line):
+  // on each clock edge, increment the column counter
+  // i.e., from 0 to 799.
   always @(posedge CLK25) begin
     if((Hcnt == HM)) begin
       // 799
@@ -82,7 +82,7 @@ parameter VR = 2;  //retrace
     end
   end
 
-  // generation du signal de synchronisation horizontale Hsync:
+  // generation of the horizontal synchronization signal Hsync:
   always @(posedge CLK25) begin
     if((Hcnt >= (HD + HF) && Hcnt <= (HD + HF + HR - 1))) begin
       // Hcnt >= 656 and Hcnt <= 751
@@ -93,10 +93,10 @@ parameter VR = 2;  //retrace
     end
   end
 
-  // generation du signal de synchronisation verticale Vsync:
+  // generation of the vertical synchronization signal Vsync:
   always @(posedge CLK25) begin
     if((Vcnt >= (VD + VF) && Vcnt <= (VD + VF + VR - 1))) begin
-      //-Vcnt >= 490 and vcnt<= 491
+      // Vcnt >= 490 and Vcnt <= 491
       Vsync <= 1'b0;
     end
     else begin
@@ -104,7 +104,7 @@ parameter VR = 2;  //retrace
     end
   end
 
-  // Nblank et Nsync pour commander le covertisseur ADV7123:
+  // Nblank and Nsync to control the ADV7123 converter:
   assign Nsync = 1'b1;
   assign video = (Hcnt < HD) && (Vcnt < VD) ? 1'b1 : 1'b0;
   assign Nblank = video;

@@ -274,7 +274,7 @@ reg [7:0] address = 1'b0;
     end
     8'h38 : begin
       //sreg <= 16'h71b5; //Color bar test
-		sreg <= 16'h7100;
+		  sreg <= 16'h7100;
     end
     default : begin
       sreg <= 16'hffff;

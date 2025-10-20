@@ -7,8 +7,9 @@ module top_level(
 	input  	logic [7:0]  OV7670_DATA,
 	output 	logic        OV7670_SIOC,
 	inout  	wire         OV7670_SIOD,
-	output 	logic        OV7670_PWON,
+	output 	logic        OV7670_PWDN,
 	output 	logic        OV7670_RESET,
+	input   logic [3:0]  KEY,
 	
 	output logic        VGA_HS,
 	output logic        VGA_VS,
@@ -20,13 +21,13 @@ module top_level(
 	output logic        VGA_CLK
 
 );
-	logic sys_reset = 1'b0;
+	logic sys_reset = ~KEY[0];
 
 	//Camera and VGA PLL
 	logic       clk_25_vga;
 	logic       clk_12_camera; 
 	logic 		resend_camera_config	 = 1'b0;
-	logic			video_pll_locked;
+	logic		video_pll_locked;
 	logic 		config_finished;
 	assign OV7670_XCLK = clk_25_vga;
 	video_PLL U0(

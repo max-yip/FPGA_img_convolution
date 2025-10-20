@@ -81,10 +81,11 @@ reg [7:0] address = 1'b0;
       // COM7   Size & RGB output
     end
     8'h03 : begin
-      sreg <= 16'h1100;
+      //sreg <= 16'h1100;
+		sreg <= 16'h110F;
       // CLKRC  Prescaler - Fin/(1+1)
     end
-    8'h04 : begin
+    8'h04 : begin 
       sreg <= 16'h0C00;
       // COM3   Lots of stuff, enable scaling, all others off
     end
@@ -93,7 +94,7 @@ reg [7:0] address = 1'b0;
       // COM14  PCLK scaling off
     end
     8'h06 : begin
-      sreg <= 16'h8C00;
+      sreg <= 16'h8C02;
       // RGB444 Set RGB format
     end
     8'h07 : begin
@@ -102,6 +103,7 @@ reg [7:0] address = 1'b0;
     end
     8'h08 : begin
       sreg <= 16'h4010;
+		//sreg <= 16'h40D0;
       // COM15  Full 0-255 output, RGB 565
     end
     8'h09 : begin
@@ -109,7 +111,8 @@ reg [7:0] address = 1'b0;
       // TSLB   Set UV ordering,  do not auto-reset window
     end
     8'h0A : begin
-      sreg <= 16'h1438;
+      sreg <= 16'h1448;
+		//sreg <= 16'h1400;
       // COM9  - AGC Celling
     end
     8'h0B : begin
@@ -222,8 +225,9 @@ reg [7:0] address = 1'b0;
     8'h28 : begin
       sreg <= 16'h4e20;
     end
+      
     8'h29 : begin
-      sreg <= 16'h6900;
+		sreg <= 16'h6900;
       // GFIX (0x69) 0x00
     end
     8'h2A : begin
@@ -268,11 +272,78 @@ reg [7:0] address = 1'b0;
     8'h37 : begin
       sreg <= 16'hb80a;
     end
+    8'h38 : begin
+      //sreg <= 16'h71b5; //Color bar test
+		sreg <= 16'h7100;
+    end
     default : begin
       sreg <= 16'hffff;
     end
+	 
+
     endcase
   end
 
 
 endmodule
+
+
+/*
+            0:        reg_and_data    <=    16'h1280;
+            1:        reg_and_data    <=    16'h1280;
+            2:        reg_and_data    <=    16'h1204;
+            3:        reg_and_data    <=    16'h110F;
+            4:        reg_and_data    <=    16'h0C00;
+            5:        reg_and_data    <=    16'h3E00;
+            6:        reg_and_data    <=    16'h8C02;
+            7:        reg_and_data    <=    16'h0400;
+            8:        reg_and_data    <=    16'h4010;
+            9:        reg_and_data    <=    16'h3a04;
+            10:        reg_and_data    <=    16'h1448;
+            11:        reg_and_data    <=    16'h4f40;
+            12:        reg_and_data    <=    16'h5034;
+            13:        reg_and_data    <=    16'h510C;
+            14:        reg_and_data    <=    16'h5217;
+            15:        reg_and_data    <=    16'h5329;
+            16:        reg_and_data    <=    16'h5440;
+            17:        reg_and_data    <=    16'h581e;
+            18:        reg_and_data    <=    16'h3dc0;
+            19:        reg_and_data    <=    16'h1100;
+            20:        reg_and_data    <=    16'h1711;
+            21:        reg_and_data    <=    16'h1861;
+            22:        reg_and_data    <=    16'h32A4;
+            23:        reg_and_data    <=    16'h1903;
+            24:        reg_and_data    <=    16'h1A7b;
+            25:        reg_and_data    <=    16'h030a;
+            26:        reg_and_data    <=    16'h0e61;
+            27:        reg_and_data    <=    16'h0f4b;
+            28:        reg_and_data    <=    16'h1602;
+            29:        reg_and_data    <=    16'h1e37;
+            30:        reg_and_data    <=    16'h2102;
+            31:        reg_and_data    <=    16'h2291;
+            32:        reg_and_data    <=    16'h2907;
+            33:        reg_and_data    <=    16'h330b;
+            34:        reg_and_data    <=    16'h350b;
+            35:        reg_and_data    <=    16'h371d;
+            36:        reg_and_data    <=    16'h3871;
+            37:        reg_and_data    <=    16'h392a;
+            38:        reg_and_data    <=    16'h3c78;
+            39:        reg_and_data    <=    16'h4d40;
+            40:        reg_and_data    <=    16'h4e20;
+            41:        reg_and_data    <=    16'h6900;
+            42:        reg_and_data    <=    16'h6b4a;
+            43:        reg_and_data    <=    16'h7410;
+            44:        reg_and_data    <=    16'h8d4f;
+            45:        reg_and_data    <=    16'h8e00;
+            46:        reg_and_data    <=    16'h8f00;
+            47:        reg_and_data    <=    16'h9000;
+            48:        reg_and_data    <=    16'h9100;
+            49:        reg_and_data    <=    16'h9600;
+            50:        reg_and_data    <=    16'h9a00;
+            51:        reg_and_data    <=    16'hb084;
+            52:        reg_and_data    <=    16'hb10c;
+            53:        reg_and_data    <=    16'hb20e;
+            54:        reg_and_data    <=    16'hb382;
+            55:        reg_and_data    <=    16'hb80a;
+            56:        reg_and_data    <=    16'h7100;
+*/

@@ -21,7 +21,8 @@ module top_level(
 	output logic        VGA_CLK
 
 );
-	logic sys_reset = ~KEY[0];
+	logic sys_reset;
+	assign sys_reset = ~KEY[0];
 
 	//Camera and VGA PLL
 	logic       clk_25_vga;
@@ -88,10 +89,74 @@ module top_level(
 	);
 	assign VGA_CLK = clk_25_vga;
 	
-	vga_driver U4(
+//	
+//	logic [11:0] filtered_data;
+//	logic        filtered_ready;  // delayed valid (aligned with filtered_data)
+//
+//	color_filter U4 (
+//		.clk(clk_25_vga),
+//		.rst(sys_reset),
+//		.pixel_in(video_data),      // from image buffer
+//		.in_ready(vga_ready),       // original ready enters filter
+//		.veml_ready(veml_ready),
+//		.parcel_color(color_data),
+//		.pixel_out(filtered_data),  // processed pixel
+//		.out_ready(filtered_ready)  // delayed ready
+//	);
+//	
+//	logic [3:0] grey_data;
+//	logic  		grey_ready;
+//	
+//	rgb_to_grey U5 (
+//		 .clk(clk_25_vga),
+//		 .rst(sys_reset),
+//		 .pixel_in(filtered_data),
+//		 .pixel_out(grey_data),
+//		 .in_ready(filtered_ready),
+//	    .out_ready(grey_ready)
+//	);
+//	
+//	logic  	   edge_data;
+//	logic 		edge_ready;
+//	
+//	edge_filter U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
+//		 .clk(clk_25_vga),
+//		 .rst(sys_reset),
+//		 .pixel_in(grey_data),
+//		 .pixel_out(edge_data),
+//		 .in_ready(grey_ready),
+//		 .out_ready(edge_ready),
+//	);
+//
+//	
+//	logic [$clog2(636):0] centroid; 	//640 width -2 from edge -2 from denoise
+//	
+//	calc_centroid U8 (
+//		 .clk(clk_25_vga),
+//		 .rst(sys_reset),
+//		 .pixel_in(edge_data),
+//		 .centroid(centroid),
+//		 .in_ready(edge_ready)
+//	);
+//	
+//	//might need a parameter to choose between 4bit or 1bit for testing'
+//	logic [11:0] rgb_grey_pixel;
+//	logic rgb_ready;
+//	
+//	grey_to_rgb U9 (
+//		 .clk(clk_25_vga),
+//		 .rst(sys_reset),
+//		 .pixel_in(edge_data),
+//		 .pixel_out(rgb_grey_pixel),
+//		 .in_ready(edge_ready),
+//		 .out_ready(rgb_ready)
+//	);
+//	
+	
+	vga_driver U10(
 		 .clk(clk_25_vga), 
 		 .rst(sys_reset),
-		 .pixel(video_data),
+		 .pixel(video_data), // pass in filtered_data or rgb_grey_pixel from color/edge detector instead
 		 .hsync(VGA_HS),
 		 .vsync(VGA_VS),
 		 .r(VGA_R),
@@ -99,7 +164,7 @@ module top_level(
 		 .b(VGA_B),
 	    .VGA_BLANK_N(VGA_BLANK_N),
 	    .VGA_SYNC_N(VGA_SYNC_N),
-		 .ready(vga_ready)
+		 .ready(vga_ready) // changed to filtered_ready/rgb_ready
 	);
 		
 	

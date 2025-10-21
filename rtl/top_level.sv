@@ -129,7 +129,7 @@ module top_level(
 //	);
 //
 //	
-//	logic [$clog2(636):0] centroid; 	//640 width -2 from edge -2 from denoise
+//	logic [$clog2(476):0] centroid; 	//480 width -2 from edge -2 from denoise
 //	
 //	calc_centroid U8 (
 //		 .clk(clk_25_vga),

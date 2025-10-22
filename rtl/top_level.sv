@@ -107,7 +107,7 @@ module top_level(
 //	logic [3:0] grey_data;
 //	logic  		grey_ready;
 //	
-//	rgb_to_grey U5 (
+//	rgb_to_grey U5 (  				//DONE
 //		 .clk(clk_25_vga),
 //		 .rst(sys_reset),
 //		 .pixel_in(filtered_data),
@@ -119,14 +119,18 @@ module top_level(
 //	logic  	   edge_data;
 //	logic 		edge_ready;
 //	
-//	edge_filter U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
-//		 .clk(clk_25_vga),
-//		 .rst(sys_reset),
-//		 .pixel_in(grey_data),
-//		 .pixel_out(edge_data),
-//		 .in_ready(grey_ready),
-//		 .out_ready(edge_ready),
-//	);
+//	SOBEL DONE: currently output as 4bit Grey, 3x3 might be too noisy, 5x5 + denoise
+	// edge_filter #(
+	// 	.IMG_W(640),
+	// 	.IMG_H(480)
+	// ) U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
+	// 	 .clk(clk_25_vga),
+	// 	 .rst(sys_reset),
+	// 	 .pixel_in(grey_data),
+	// 	 .pixel_out(edge_data),
+	// 	 .in_ready(grey_ready),
+	// 	 .out_ready(edge_ready),
+	// );
 //
 //	
 //	logic [$clog2(476):0] centroid; 	//480 width -2 from edge -2 from denoise
@@ -139,11 +143,12 @@ module top_level(
 //		 .in_ready(edge_ready)
 //	);
 //	
-//	//might need a parameter to choose between 4bit or 1bit for testing'
+//	//might need a parameter to choose between 4bit or 1bit for testing
 //	logic [11:0] rgb_grey_pixel;
 //	logic rgb_ready;
 //	
-//	grey_to_rgb U9 (
+//	DONE
+//	grey_to_rgb U9 ( 
 //		 .clk(clk_25_vga),
 //		 .rst(sys_reset),
 //		 .pixel_in(edge_data),

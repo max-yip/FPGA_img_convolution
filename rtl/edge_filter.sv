@@ -9,8 +9,8 @@ module edge_filter #(
 )(
     input  logic        clk,
     input  logic        rst,
-    input  logic [3:0]  grey_data,    // 4-bit grayscale input
-    output logic [3:0]  edge_data,    // 4-bit edge output
+    input  logic [3:0]  pixel_in,    // 4-bit grayscale input
+    output logic [3:0]  pixel_out,    // 4-bit edge output
     input  logic        in_ready,
     output logic        out_ready
 );
@@ -58,13 +58,13 @@ module edge_filter #(
             // -----------------------------
             shift_top[0] <= shift_top[1]; shift_top[1] <= shift_top[2]; shift_top[2] <= line0[col];
             shift_mid[0] <= shift_mid[1]; shift_mid[1] <= shift_mid[2]; shift_mid[2] <= line1[col];
-            shift_bot[0] <= shift_bot[1]; shift_bot[1] <= shift_bot[2]; shift_bot[2] <= grey_data;
+            shift_bot[0] <= shift_bot[1]; shift_bot[1] <= shift_bot[2]; shift_bot[2] <= pixel_in;
 
             // -----------------------------
             // Update line buffers (circular write)
             // -----------------------------
             line0[col] <= line1[col];
-            line1[col] <= grey_data;
+            line1[col] <= pixel_in;
 
             // -----------------------------
             // Advance column pointer
@@ -98,7 +98,7 @@ module edge_filter #(
         mag = ($unsigned(gx[7:4]) + $unsigned(gy[7:4]));
     end
 
-    assign edge_data = mag[3:0];
+    assign pixel_out = mag[3:0];
     assign out_ready = ready_shift[2]; // valid after 3x3 window is ready
 
 endmodule

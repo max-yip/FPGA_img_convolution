@@ -104,33 +104,33 @@ module top_level(
 //		.out_ready(filtered_ready)  // delayed ready
 //	);
 //	
-//	logic [3:0] grey_data;
-//	logic  		grey_ready;
+	logic [3:0] grey_data;
+	logic  		grey_ready;
+	
+	rgb_to_grey U5 (  				//DONE
+		 .clk(clk_25_vga),
+		 .rst(sys_reset),
+		 .pixel_in(video_data),
+		 .pixel_out(grey_data),
+		 .in_ready(vga_ready),
+	    .out_ready(grey_ready)
+	);
 //	
-//	rgb_to_grey U5 (  				//DONE
-//		 .clk(clk_25_vga),
-//		 .rst(sys_reset),
-//		 .pixel_in(filtered_data),
-//		 .pixel_out(grey_data),
-//		 .in_ready(filtered_ready),
-//	    .out_ready(grey_ready)
-//	);
-//	
-//	logic  	   edge_data;
-//	logic 		edge_ready;
+	logic [3:0] edge_data;
+	logic 		edge_ready;
 //	
 //	SOBEL DONE: currently output as 4bit Grey, 3x3 might be too noisy, 5x5 + denoise
-	// edge_filter #(
-	// 	.IMG_W(640),
-	// 	.IMG_H(480)
-	// ) U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
-	// 	 .clk(clk_25_vga),
-	// 	 .rst(sys_reset),
-	// 	 .pixel_in(grey_data),
-	// 	 .pixel_out(edge_data),
-	// 	 .in_ready(grey_ready),
-	// 	 .out_ready(edge_ready),
-	// );
+	edge_filter #(
+		.IMG_W(640),
+		.IMG_H(480)
+	) U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
+		 .clk(clk_25_vga),
+		 .rst(sys_reset),
+		 .pixel_in(grey_data),
+		 .pixel_out(edge_data),
+		 .in_ready(grey_ready),
+		 .out_ready(edge_ready),
+	);
 //
 //	
 //	logic [$clog2(476):0] centroid; 	//480 width -2 from edge -2 from denoise
@@ -144,24 +144,24 @@ module top_level(
 //	);
 //	
 //	//might need a parameter to choose between 4bit or 1bit for testing
-//	logic [11:0] rgb_grey_pixel;
-//	logic rgb_ready;
-//	
+	logic [11:0] rgb_grey_pixel;
+	logic rgb_ready;
+	
 //	DONE
-//	grey_to_rgb U9 ( 
-//		 .clk(clk_25_vga),
-//		 .rst(sys_reset),
-//		 .pixel_in(edge_data),
-//		 .pixel_out(rgb_grey_pixel),
-//		 .in_ready(edge_ready),
-//		 .out_ready(rgb_ready)
-//	);
+	grey_to_rgb U9 ( 
+		 .clk(clk_25_vga),
+		 .rst(sys_reset),
+		 .pixel_in(edge_data),
+		 .pixel_out(rgb_grey_pixel),
+		 .in_ready(edge_ready),
+		 .out_ready(rgb_ready)
+	);
 //	
 	
 	vga_driver U10(
 		 .clk(clk_25_vga), 
 		 .rst(sys_reset),
-		 .pixel(video_data), // pass in filtered_data or rgb_grey_pixel from color/edge detector instead
+		 .pixel(rgb_grey_pixel), // pass in filtered_data or rgb_grey_pixel from color/edge detector instead
 		 .hsync(VGA_HS),
 		 .vsync(VGA_VS),
 		 .r(VGA_R),
@@ -169,7 +169,7 @@ module top_level(
 		 .b(VGA_B),
 	    .VGA_BLANK_N(VGA_BLANK_N),
 	    .VGA_SYNC_N(VGA_SYNC_N),
-		 .ready(vga_ready) // changed to filtered_ready/rgb_ready
+		 .ready(vga_ready)	//output vga_ready as feedback
 	);
 		
 	

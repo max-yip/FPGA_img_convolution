@@ -1,16 +1,16 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "Vedge_filter_tb__pch.h"
-#include "Vedge_filter_tb.h"
-#include "Vedge_filter_tb___024root.h"
+#include "Vvga_chain_tb__pch.h"
+#include "Vvga_chain_tb.h"
+#include "Vvga_chain_tb___024root.h"
 
 // FUNCTIONS
-Vedge_filter_tb__Syms::~Vedge_filter_tb__Syms()
+Vvga_chain_tb__Syms::~Vvga_chain_tb__Syms()
 {
 }
 
-Vedge_filter_tb__Syms::Vedge_filter_tb__Syms(VerilatedContext* contextp, const char* namep, Vedge_filter_tb* modelp)
+Vvga_chain_tb__Syms::Vvga_chain_tb__Syms(VerilatedContext* contextp, const char* namep, Vvga_chain_tb* modelp)
     : VerilatedSyms{contextp}
     // Setup internal state of the Syms class
     , __Vm_modelp{modelp}
@@ -18,7 +18,7 @@ Vedge_filter_tb__Syms::Vedge_filter_tb__Syms(VerilatedContext* contextp, const c
     , TOP{this, namep}
 {
         // Check resources
-        Verilated::stackCheck(108);
+        Verilated::stackCheck(122);
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-9);
     _vm_contextp__->timeprecision(-12);

@@ -5,15 +5,29 @@
 #include "Vedge_filter_tb__pch.h"
 #include "Vedge_filter_tb___024root.h"
 
+VL_ATTR_COLD void Vedge_filter_tb___024root___eval_static__TOP(Vedge_filter_tb___024root* vlSelf);
+VL_ATTR_COLD void Vedge_filter_tb___024root____Vm_traceActivitySetAll(Vedge_filter_tb___024root* vlSelf);
+
 VL_ATTR_COLD void Vedge_filter_tb___024root___eval_static(Vedge_filter_tb___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vedge_filter_tb___024root___eval_static\n"); );
     Vedge_filter_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     auto& vlSelfRef = std::ref(*vlSelf).get();
     // Body
+    Vedge_filter_tb___024root___eval_static__TOP(vlSelf);
+    Vedge_filter_tb___024root____Vm_traceActivitySetAll(vlSelf);
     vlSelfRef.__Vtrigprevexpr___TOP__edge_filter_tb__DOT__clk__0 
         = vlSelfRef.edge_filter_tb__DOT__clk;
     vlSelfRef.__Vtrigprevexpr___TOP__edge_filter_tb__DOT__rst__0 
         = vlSelfRef.edge_filter_tb__DOT__rst;
+}
+
+VL_ATTR_COLD void Vedge_filter_tb___024root___eval_static__TOP(Vedge_filter_tb___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vedge_filter_tb___024root___eval_static__TOP\n"); );
+    Vedge_filter_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Body
+    vlSelfRef.edge_filter_tb__DOT__in_seen = 0U;
+    vlSelfRef.edge_filter_tb__DOT__out_seen = 0U;
 }
 
 VL_ATTR_COLD void Vedge_filter_tb___024root___eval_final(Vedge_filter_tb___024root* vlSelf) {
@@ -43,7 +57,7 @@ VL_ATTR_COLD void Vedge_filter_tb___024root___eval_settle(Vedge_filter_tb___024r
 #ifdef VL_DEBUG
             Vedge_filter_tb___024root___dump_triggers__stl(vlSelf);
 #endif
-            VL_FATAL_MT("tb/edge_filter_tb.sv", 5, "", "Settle region did not converge.");
+            VL_FATAL_MT("tb/edge_filter_tb.sv", 7, "", "Settle region did not converge.");
         }
         __VstlIterCount = ((IData)(1U) + __VstlIterCount);
         __VstlContinue = 0U;
@@ -70,7 +84,6 @@ VL_ATTR_COLD void Vedge_filter_tb___024root___dump_triggers__stl(Vedge_filter_tb
 #endif  // VL_DEBUG
 
 VL_ATTR_COLD void Vedge_filter_tb___024root___stl_sequent__TOP__0(Vedge_filter_tb___024root* vlSelf);
-VL_ATTR_COLD void Vedge_filter_tb___024root____Vm_traceActivitySetAll(Vedge_filter_tb___024root* vlSelf);
 
 VL_ATTR_COLD void Vedge_filter_tb___024root___eval_stl(Vedge_filter_tb___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vedge_filter_tb___024root___eval_stl\n"); );
@@ -205,6 +218,7 @@ VL_ATTR_COLD void Vedge_filter_tb___024root____Vm_traceActivitySetAll(Vedge_filt
     vlSelfRef.__Vm_traceActivity[1U] = 1U;
     vlSelfRef.__Vm_traceActivity[2U] = 1U;
     vlSelfRef.__Vm_traceActivity[3U] = 1U;
+    vlSelfRef.__Vm_traceActivity[4U] = 1U;
 }
 
 VL_ATTR_COLD void Vedge_filter_tb___024root___ctor_var_reset(Vedge_filter_tb___024root* vlSelf) {
@@ -224,6 +238,11 @@ VL_ATTR_COLD void Vedge_filter_tb___024root___ctor_var_reset(Vedge_filter_tb___0
     vlSelf->edge_filter_tb__DOT__fd = 0;
     vlSelf->edge_filter_tb__DOT__i = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 11444180517068591985ull);
     vlSelf->edge_filter_tb__DOT__gray8 = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 802419146486061012ull);
+    vlSelf->edge_filter_tb__DOT__cycle_count = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 3939109441893089544ull);
+    vlSelf->edge_filter_tb__DOT__first_in_cycle = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 9505304411514243420ull);
+    vlSelf->edge_filter_tb__DOT__first_out_cycle = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 10495583250287198547ull);
+    vlSelf->edge_filter_tb__DOT__in_seen = 0;
+    vlSelf->edge_filter_tb__DOT__out_seen = 0;
     vlSelf->edge_filter_tb__DOT__rgb_dut__DOT__gray_temp = VL_SCOPED_RAND_RESET_I(8, __VscopeHash, 5587413599992366154ull);
     for (int __Vi0 = 0; __Vi0 < 640; ++__Vi0) {
         vlSelf->edge_filter_tb__DOT__edge_dut__DOT__line0[__Vi0] = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 7246551835189987343ull);
@@ -252,7 +271,7 @@ VL_ATTR_COLD void Vedge_filter_tb___024root___ctor_var_reset(Vedge_filter_tb___0
     vlSelf->edge_filter_tb__DOT__edge_dut__DOT____Vlvbound_hfa9c3548__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 1020403130200276644ull);
     vlSelf->__Vtrigprevexpr___TOP__edge_filter_tb__DOT__clk__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 15464007548841880432ull);
     vlSelf->__Vtrigprevexpr___TOP__edge_filter_tb__DOT__rst__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 12606770227110089206ull);
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 5; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }

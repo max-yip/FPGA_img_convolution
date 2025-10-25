@@ -1,4 +1,7 @@
 `timescale 1ns/1ns
+/* verilator lint_off WIDTHEXPAND */
+/* verilator lint_off SYNCASYNCNET */
+/* verilator lint_off UNUSEDSIGNAL */
 module vga_driver (
     input clk, // vga clock: assume 25.175 MHz
     input rst,
@@ -65,17 +68,17 @@ module vga_driver (
         g = '0;
         b = '0;
         case (state)
-            HSYNC:       begin
+            HSYNC: begin
                 hsync = 0;
             end
-            DISPLAY:     begin
-                r = {2{pixel[11:8]}}; 
+            DISPLAY: begin
+                r = {2{pixel[11:8]}};
                 g = {2{pixel[7:4]}};
                 b = {2{pixel[3:0]}};
             end
         endcase
-    end : output_logic
-	 
+    end
+	
 	 // Vertical outputs:
 
 	 assign vsync = ((line_count >= (VVisibleArea + VFrontPorch))   && (line_count < (VVisibleArea + VFrontPorch + VSyncPulse))) ? 0 : 1;

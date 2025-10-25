@@ -1,6 +1,8 @@
 `timescale 1ns/1ps
 /* verilator lint_off WIDTHEXPAND */
 /* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_off PROCASSINIT */
+/* verilator lint_off SYNCASYNCNET */
 
 module edge_filter_tb;
 
@@ -38,13 +40,13 @@ module edge_filter_tb;
     ) edge_dut (
         .clk(clk),
         .rst(rst),
-        .grey_data(pixel_grey), // 4-bit input
-        .edge_data(pixel_edge), // 4-bit output
+        .pixel_in(pixel_grey), // 4-bit input
+        .pixel_out(pixel_edge), // 4-bit output
         .in_ready(grey_ready),
         .out_ready(out_ready)
     );
 
-    // Clock generation (100MHz)
+    // Clock generation (100MHz) => 10ns period
     always #5 clk = ~clk;
 
     // Input image memory
@@ -55,9 +57,44 @@ module edge_filter_tb;
     integer i;
     integer gray8;
 
-    // -----------------------------
+    // ===========================
+    // Latency Measurement Logic
+    // ===========================
+    integer cycle_count;
+    integer first_in_cycle;
+    integer first_out_cycle;
+    bit     in_seen = 0;
+    bit     out_seen = 0;
+
+    // Cycle counter
+    always @(posedge clk) begin
+        if (rst)
+            cycle_count <= 0;
+        else
+            cycle_count <= cycle_count + 1;
+    end
+
+    // Record timing of first input/output
+    always @(posedge clk) begin
+        if (!rst) begin
+            if (in_ready && !in_seen) begin
+                first_in_cycle <= cycle_count;
+                in_seen <= 1;
+            end
+            if (out_ready && !out_seen) begin
+                first_out_cycle <= cycle_count;
+                out_seen <= 1;
+                $display("✅ First input seen at cycle %0d", first_in_cycle);
+                $display("✅ First output seen at cycle %0d", first_out_cycle);
+                $display("📏 Pipeline latency = %0d cycles", first_out_cycle - first_in_cycle);
+                $display("⏱ In time units = %0d ns", (first_out_cycle - first_in_cycle) * 10);
+            end
+        end
+    end
+
+    // ===========================
     // Stimulus
-    // -----------------------------
+    // ===========================
     initial begin
         clk = 0;
         rst = 1;
@@ -74,28 +111,21 @@ module edge_filter_tb;
         fd = $fopen("edge.ppm", "w");
         $fwrite(fd, "P3\n%d %d\n255\n", IMG_W, IMG_H);
 
-        // -----------------------------
         // Feed pixels into pipeline
-        // -----------------------------
         for (i = 0; i < NPIX; i = i + 1) begin
-            // Apply pixel to RGB->Grey
             @(posedge clk);
             pixel_in = img_mem[i];
             in_ready = 1;
             @(posedge clk);
             in_ready = 0;
 
-            // Wait until edge_filter produces valid output
             if (out_ready) begin
-                // Convert 4-bit edge to 8-bit for PPM
-                gray8 = {pixel_edge, pixel_edge}; // upscale 4->8 bits
+                gray8 = {pixel_edge, pixel_edge};
                 $fwrite(fd, "%0d %0d %0d\n", gray8, gray8, gray8);
             end
         end
 
-        // -----------------------------
-        // Add two extra empty pixels at the end
-        // -----------------------------
+        // Extra pixels to flush the pipeline
         repeat (2) begin
             @(posedge clk);
             pixel_in = 0;
@@ -109,7 +139,7 @@ module edge_filter_tb;
             end
         end
 
-        // Allow pipeline to flush last pixels
+        // Allow remaining pixels to flush
         repeat (IMG_W*3) @(posedge clk);
 
         // Close file + finish

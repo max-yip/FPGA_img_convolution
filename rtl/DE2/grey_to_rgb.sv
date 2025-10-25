@@ -1,3 +1,4 @@
+/* verilator lint_off UNUSEDSIGNAL */
 module grey_to_rgb (
     input           clk,
     input           rst,

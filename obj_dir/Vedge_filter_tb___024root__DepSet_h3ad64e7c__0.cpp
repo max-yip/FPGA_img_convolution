@@ -15,7 +15,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
         co_await vlSelfRef.__VdlySched.delay(0x1388ULL, 
                                              nullptr, 
                                              "tb/edge_filter_tb.sv", 
-                                             48);
+                                             50);
         vlSelfRef.edge_filter_tb__DOT__clk = (1U & 
                                               (~ (IData)(vlSelfRef.edge_filter_tb__DOT__clk)));
     }

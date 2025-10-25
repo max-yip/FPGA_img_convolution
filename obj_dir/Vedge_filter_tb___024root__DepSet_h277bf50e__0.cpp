@@ -40,7 +40,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                  , 0, ~0ULL);
     co_await vlSelfRef.__VdlySched.delay(0x4e20ULL, 
                                          nullptr, "tb/edge_filter_tb.sv", 
-                                         71);
+                                         108);
     vlSelfRef.__Vm_traceActivity[2U] = 1U;
     vlSelfRef.edge_filter_tb__DOT__rst = 0U;
     vlSelfRef.edge_filter_tb__DOT__fd = VL_FOPEN_NN(
@@ -55,7 +55,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                                                              nullptr, 
                                                              "@(posedge edge_filter_tb.clk)", 
                                                              "tb/edge_filter_tb.sv", 
-                                                             82);
+                                                             116);
         vlSelfRef.__Vm_traceActivity[2U] = 1U;
         vlSelfRef.edge_filter_tb__DOT__pixel_in = (
                                                    (0x4afffU 
@@ -73,7 +73,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                                                              nullptr, 
                                                              "@(posedge edge_filter_tb.clk)", 
                                                              "tb/edge_filter_tb.sv", 
-                                                             85);
+                                                             119);
         vlSelfRef.__Vm_traceActivity[2U] = 1U;
         vlSelfRef.edge_filter_tb__DOT__in_ready = 0U;
         if (VL_UNLIKELY(((4U & (IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift))))) {
@@ -93,7 +93,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                                                          nullptr, 
                                                          "@(posedge edge_filter_tb.clk)", 
                                                          "tb/edge_filter_tb.sv", 
-                                                         100);
+                                                         130);
     vlSelfRef.__Vm_traceActivity[2U] = 1U;
     vlSelfRef.edge_filter_tb__DOT__pixel_in = 0U;
     vlSelfRef.edge_filter_tb__DOT__in_ready = 1U;
@@ -101,7 +101,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                                                          nullptr, 
                                                          "@(posedge edge_filter_tb.clk)", 
                                                          "tb/edge_filter_tb.sv", 
-                                                         103);
+                                                         133);
     vlSelfRef.__Vm_traceActivity[2U] = 1U;
     vlSelfRef.edge_filter_tb__DOT__in_ready = 0U;
     if (VL_UNLIKELY(((4U & (IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift))))) {
@@ -115,7 +115,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                                                          nullptr, 
                                                          "@(posedge edge_filter_tb.clk)", 
                                                          "tb/edge_filter_tb.sv", 
-                                                         100);
+                                                         130);
     vlSelfRef.__Vm_traceActivity[2U] = 1U;
     vlSelfRef.edge_filter_tb__DOT__pixel_in = 0U;
     vlSelfRef.edge_filter_tb__DOT__in_ready = 1U;
@@ -123,7 +123,7 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                                                          nullptr, 
                                                          "@(posedge edge_filter_tb.clk)", 
                                                          "tb/edge_filter_tb.sv", 
-                                                         103);
+                                                         133);
     vlSelfRef.__Vm_traceActivity[2U] = 1U;
     vlSelfRef.edge_filter_tb__DOT__in_ready = 0U;
     if (VL_UNLIKELY(((4U & (IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift))))) {
@@ -139,14 +139,14 @@ VL_INLINE_OPT VlCoroutine Vedge_filter_tb___024root___eval_initial__TOP__Vtiming
                                                              nullptr, 
                                                              "@(posedge edge_filter_tb.clk)", 
                                                              "tb/edge_filter_tb.sv", 
-                                                             113);
+                                                             143);
         vlSelfRef.__Vm_traceActivity[2U] = 1U;
         edge_filter_tb__DOT__unnamedblk1_2__DOT____Vrepeat1 
             = (edge_filter_tb__DOT__unnamedblk1_2__DOT____Vrepeat1 
                - (IData)(1U));
     }
     VL_FCLOSE_I(vlSelfRef.edge_filter_tb__DOT__fd); VL_WRITEF_NX("\342\234\205 Simulation complete, output written to edge.ppm\n",0);
-    VL_FINISH_MT("tb/edge_filter_tb.sv", 118, "");
+    VL_FINISH_MT("tb/edge_filter_tb.sv", 148, "");
     vlSelfRef.__Vm_traceActivity[2U] = 1U;
 }
 
@@ -180,15 +180,20 @@ VL_INLINE_OPT void Vedge_filter_tb___024root___act_comb__TOP__0(Vedge_filter_tb_
 }
 
 void Vedge_filter_tb___024root___nba_sequent__TOP__0(Vedge_filter_tb___024root* vlSelf);
+void Vedge_filter_tb___024root___nba_sequent__TOP__1(Vedge_filter_tb___024root* vlSelf);
 
 void Vedge_filter_tb___024root___eval_nba(Vedge_filter_tb___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vedge_filter_tb___024root___eval_nba\n"); );
     Vedge_filter_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     auto& vlSelfRef = std::ref(*vlSelf).get();
     // Body
-    if ((3ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+    if ((1ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vedge_filter_tb___024root___nba_sequent__TOP__0(vlSelf);
         vlSelfRef.__Vm_traceActivity[3U] = 1U;
+    }
+    if ((3ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
+        Vedge_filter_tb___024root___nba_sequent__TOP__1(vlSelf);
+        vlSelfRef.__Vm_traceActivity[4U] = 1U;
     }
     if ((5ULL & vlSelfRef.__VnbaTriggered.word(0U))) {
         Vedge_filter_tb___024root___act_comb__TOP__0(vlSelf);
@@ -197,6 +202,46 @@ void Vedge_filter_tb___024root___eval_nba(Vedge_filter_tb___024root* vlSelf) {
 
 VL_INLINE_OPT void Vedge_filter_tb___024root___nba_sequent__TOP__0(Vedge_filter_tb___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vedge_filter_tb___024root___nba_sequent__TOP__0\n"); );
+    Vedge_filter_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    auto& vlSelfRef = std::ref(*vlSelf).get();
+    // Init
+    IData/*31:0*/ __Vdly__edge_filter_tb__DOT__cycle_count;
+    __Vdly__edge_filter_tb__DOT__cycle_count = 0;
+    // Body
+    __Vdly__edge_filter_tb__DOT__cycle_count = vlSelfRef.edge_filter_tb__DOT__cycle_count;
+    __Vdly__edge_filter_tb__DOT__cycle_count = ((IData)(vlSelfRef.edge_filter_tb__DOT__rst)
+                                                 ? 0U
+                                                 : 
+                                                ((IData)(1U) 
+                                                 + vlSelfRef.edge_filter_tb__DOT__cycle_count));
+    if ((1U & (~ (IData)(vlSelfRef.edge_filter_tb__DOT__rst)))) {
+        if (VL_UNLIKELY(((IData)((((IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift) 
+                                   >> 2U) & (~ (IData)(vlSelfRef.edge_filter_tb__DOT__out_seen))))))) {
+            VL_WRITEF_NX("\342\234\205 First input seen at cycle %0d\n",0,
+                         32,vlSelfRef.edge_filter_tb__DOT__first_in_cycle);
+            vlSelfRef.edge_filter_tb__DOT__out_seen = 1U;
+            VL_WRITEF_NX("\342\234\205 First output seen at cycle %0d\n\360\237\223\217 Pipeline latency = %0d cycles\n\342\217\261 In time units = %0d ns\n",0,
+                         32,vlSelfRef.edge_filter_tb__DOT__first_out_cycle,
+                         32,(vlSelfRef.edge_filter_tb__DOT__first_out_cycle 
+                             - vlSelfRef.edge_filter_tb__DOT__first_in_cycle),
+                         32,VL_MULS_III(32, (IData)(0xaU), 
+                                        (vlSelfRef.edge_filter_tb__DOT__first_out_cycle 
+                                         - vlSelfRef.edge_filter_tb__DOT__first_in_cycle)));
+            vlSelfRef.edge_filter_tb__DOT__first_out_cycle 
+                = vlSelfRef.edge_filter_tb__DOT__cycle_count;
+        }
+        if (((IData)(vlSelfRef.edge_filter_tb__DOT__in_ready) 
+             & (~ (IData)(vlSelfRef.edge_filter_tb__DOT__in_seen)))) {
+            vlSelfRef.edge_filter_tb__DOT__first_in_cycle 
+                = vlSelfRef.edge_filter_tb__DOT__cycle_count;
+            vlSelfRef.edge_filter_tb__DOT__in_seen = 1U;
+        }
+    }
+    vlSelfRef.edge_filter_tb__DOT__cycle_count = __Vdly__edge_filter_tb__DOT__cycle_count;
+}
+
+VL_INLINE_OPT void Vedge_filter_tb___024root___nba_sequent__TOP__1(Vedge_filter_tb___024root* vlSelf) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vedge_filter_tb___024root___nba_sequent__TOP__1\n"); );
     Vedge_filter_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     auto& vlSelfRef = std::ref(*vlSelf).get();
     // Init
@@ -515,7 +560,7 @@ void Vedge_filter_tb___024root___eval(Vedge_filter_tb___024root* vlSelf) {
 #ifdef VL_DEBUG
             Vedge_filter_tb___024root___dump_triggers__nba(vlSelf);
 #endif
-            VL_FATAL_MT("tb/edge_filter_tb.sv", 5, "", "NBA region did not converge.");
+            VL_FATAL_MT("tb/edge_filter_tb.sv", 7, "", "NBA region did not converge.");
         }
         __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
         __VnbaContinue = 0U;
@@ -526,7 +571,7 @@ void Vedge_filter_tb___024root___eval(Vedge_filter_tb___024root* vlSelf) {
 #ifdef VL_DEBUG
                 Vedge_filter_tb___024root___dump_triggers__act(vlSelf);
 #endif
-                VL_FATAL_MT("tb/edge_filter_tb.sv", 5, "", "Active region did not converge.");
+                VL_FATAL_MT("tb/edge_filter_tb.sv", 7, "", "Active region did not converge.");
             }
             vlSelfRef.__VactIterCount = ((IData)(1U) 
                                          + vlSelfRef.__VactIterCount);

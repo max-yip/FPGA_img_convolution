@@ -19,6 +19,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vedge_filter_tb___024root final : public Veri
     CData/*0:0*/ edge_filter_tb__DOT__rst;
     CData/*3:0*/ edge_filter_tb__DOT__pixel_grey;
     CData/*0:0*/ edge_filter_tb__DOT__in_ready;
+    CData/*0:0*/ edge_filter_tb__DOT__in_seen;
+    CData/*0:0*/ edge_filter_tb__DOT__out_seen;
     CData/*7:0*/ edge_filter_tb__DOT__rgb_dut__DOT__gray_temp;
     CData/*7:0*/ edge_filter_tb__DOT__edge_dut__DOT__gx;
     CData/*7:0*/ edge_filter_tb__DOT__edge_dut__DOT__gy;
@@ -36,6 +38,9 @@ class alignas(VL_CACHE_LINE_BYTES) Vedge_filter_tb___024root final : public Veri
     IData/*31:0*/ edge_filter_tb__DOT__fd;
     IData/*31:0*/ edge_filter_tb__DOT__i;
     IData/*31:0*/ edge_filter_tb__DOT__gray8;
+    IData/*31:0*/ edge_filter_tb__DOT__cycle_count;
+    IData/*31:0*/ edge_filter_tb__DOT__first_in_cycle;
+    IData/*31:0*/ edge_filter_tb__DOT__first_out_cycle;
     IData/*31:0*/ edge_filter_tb__DOT__edge_dut__DOT__col;
     IData/*31:0*/ edge_filter_tb__DOT__edge_dut__DOT__unnamedblk1__DOT__i;
     IData/*31:0*/ __VactIterCount;
@@ -45,7 +50,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vedge_filter_tb___024root final : public Veri
     VlUnpacked<CData/*3:0*/, 3> edge_filter_tb__DOT__edge_dut__DOT__shift_top;
     VlUnpacked<CData/*3:0*/, 3> edge_filter_tb__DOT__edge_dut__DOT__shift_mid;
     VlUnpacked<CData/*3:0*/, 3> edge_filter_tb__DOT__edge_dut__DOT__shift_bot;
-    VlUnpacked<CData/*0:0*/, 4> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
     VlNBACommitQueue<VlUnpacked<CData/*3:0*/, 640>, false, CData/*3:0*/, 1> __VdlyCommitQueueedge_filter_tb__DOT__edge_dut__DOT__line0;
     VlNBACommitQueue<VlUnpacked<CData/*3:0*/, 640>, false, CData/*3:0*/, 1> __VdlyCommitQueueedge_filter_tb__DOT__edge_dut__DOT__line1;
     VlDelayScheduler __VdlySched;

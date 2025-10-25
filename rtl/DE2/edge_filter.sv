@@ -99,7 +99,8 @@ module edge_filter #(
     end
 
     assign pixel_out = mag[3:0];
-    assign out_ready = ready_shift[2]; // valid after 3x3 window is ready
+    // assign out_ready = ready_shift[2]; // valid after 3x3 window is ready
+    assign out_ready = in_ready;
 
 endmodule
 

@@ -39,28 +39,35 @@ void Vedge_filter_tb___024root__trace_chg_0_sub_0(Vedge_filter_tb___024root* vlS
         bufp->chgCData(oldp+8,((0xfU & (IData)(vlSelfRef.edge_filter_tb__DOT__pixel_in))),4);
     }
     if (VL_UNLIKELY((vlSelfRef.__Vm_traceActivity[3U]))) {
-        bufp->chgCData(oldp+9,((0xfU & (IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__mag))),4);
-        bufp->chgBit(oldp+10,((1U & ((IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift) 
-                                     >> 2U))));
-        bufp->chgIData(oldp+11,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__col),32);
-        bufp->chgCData(oldp+12,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_top[0]),4);
-        bufp->chgCData(oldp+13,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_top[1]),4);
-        bufp->chgCData(oldp+14,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_top[2]),4);
-        bufp->chgCData(oldp+15,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_mid[0]),4);
-        bufp->chgCData(oldp+16,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_mid[1]),4);
-        bufp->chgCData(oldp+17,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_mid[2]),4);
-        bufp->chgCData(oldp+18,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_bot[0]),4);
-        bufp->chgCData(oldp+19,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_bot[1]),4);
-        bufp->chgCData(oldp+20,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_bot[2]),4);
-        bufp->chgCData(oldp+21,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__gx),8);
-        bufp->chgCData(oldp+22,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__gy),8);
-        bufp->chgCData(oldp+23,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__mag),8);
-        bufp->chgCData(oldp+24,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift),3);
-        bufp->chgIData(oldp+25,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__unnamedblk1__DOT__i),32);
+        bufp->chgIData(oldp+9,(vlSelfRef.edge_filter_tb__DOT__cycle_count),32);
+        bufp->chgIData(oldp+10,(vlSelfRef.edge_filter_tb__DOT__first_in_cycle),32);
+        bufp->chgIData(oldp+11,(vlSelfRef.edge_filter_tb__DOT__first_out_cycle),32);
+        bufp->chgBit(oldp+12,(vlSelfRef.edge_filter_tb__DOT__in_seen));
+        bufp->chgBit(oldp+13,(vlSelfRef.edge_filter_tb__DOT__out_seen));
     }
-    bufp->chgBit(oldp+26,(vlSelfRef.edge_filter_tb__DOT__clk));
-    bufp->chgCData(oldp+27,(vlSelfRef.edge_filter_tb__DOT__pixel_grey),4);
-    bufp->chgCData(oldp+28,(vlSelfRef.edge_filter_tb__DOT__rgb_dut__DOT__gray_temp),8);
+    if (VL_UNLIKELY((vlSelfRef.__Vm_traceActivity[4U]))) {
+        bufp->chgCData(oldp+14,((0xfU & (IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__mag))),4);
+        bufp->chgBit(oldp+15,((1U & ((IData)(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift) 
+                                     >> 2U))));
+        bufp->chgIData(oldp+16,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__col),32);
+        bufp->chgCData(oldp+17,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_top[0]),4);
+        bufp->chgCData(oldp+18,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_top[1]),4);
+        bufp->chgCData(oldp+19,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_top[2]),4);
+        bufp->chgCData(oldp+20,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_mid[0]),4);
+        bufp->chgCData(oldp+21,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_mid[1]),4);
+        bufp->chgCData(oldp+22,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_mid[2]),4);
+        bufp->chgCData(oldp+23,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_bot[0]),4);
+        bufp->chgCData(oldp+24,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_bot[1]),4);
+        bufp->chgCData(oldp+25,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__shift_bot[2]),4);
+        bufp->chgCData(oldp+26,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__gx),8);
+        bufp->chgCData(oldp+27,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__gy),8);
+        bufp->chgCData(oldp+28,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__mag),8);
+        bufp->chgCData(oldp+29,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__ready_shift),3);
+        bufp->chgIData(oldp+30,(vlSelfRef.edge_filter_tb__DOT__edge_dut__DOT__unnamedblk1__DOT__i),32);
+    }
+    bufp->chgBit(oldp+31,(vlSelfRef.edge_filter_tb__DOT__clk));
+    bufp->chgCData(oldp+32,(vlSelfRef.edge_filter_tb__DOT__pixel_grey),4);
+    bufp->chgCData(oldp+33,(vlSelfRef.edge_filter_tb__DOT__rgb_dut__DOT__gray_temp),8);
 }
 
 void Vedge_filter_tb___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {
@@ -74,4 +81,5 @@ void Vedge_filter_tb___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*un
     vlSymsp->TOP.__Vm_traceActivity[1U] = 0U;
     vlSymsp->TOP.__Vm_traceActivity[2U] = 0U;
     vlSymsp->TOP.__Vm_traceActivity[3U] = 0U;
+    vlSymsp->TOP.__Vm_traceActivity[4U] = 0U;
 }

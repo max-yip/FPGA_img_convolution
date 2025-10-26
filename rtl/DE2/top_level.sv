@@ -135,7 +135,7 @@ module top_level(
 //
 //	
 //	logic [$clog2(640):0] centroid;
-//	
+//	DONE: need to test in hardwarer to determine noise
 //	calc_centroid U8 (
 //		 .clk(clk_25_vga),
 //		 .rst(sys_reset),

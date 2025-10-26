@@ -31,7 +31,7 @@ module edge_filter #(
 
     // Sobel result
     logic signed [7:0] gx, gy;
-    logic [7:0] mag;
+    logic signed [8:0] mag;
 
     // Pipeline ready
     logic [2:0] ready_shift;
@@ -85,21 +85,23 @@ module edge_filter #(
     // Sobel computation (combinational)
     // -----------------------------
     always_comb begin
-        // Gx = [-1 0 1; -2 0 2; -1 0 1]
-        gx =  ($signed(shift_top[0]) - $signed(shift_top[2])) +
-              2*($signed(shift_mid[0]) - $signed(shift_mid[2])) +
-              ($signed(shift_bot[0]) - $signed(shift_bot[2]));
+        // Positive-only Sobel X kernel
+        // Original: [-1 0 1; -2 0 2; -1 0 1]
+        gx = (shift_top[2] + 2*shift_mid[2] + shift_bot[2]) - 
+            (shift_top[0] + 2*shift_mid[0] + shift_bot[0]); // difference still unsigned
 
-        // Gy = [1 2 1; 0 0 0; -1 -2 -1]
-        gy =  ($signed(shift_top[0]) + 2*$signed(shift_top[1]) + $signed(shift_top[2])) -
-              ($signed(shift_bot[0]) + 2*$signed(shift_bot[1]) + $signed(shift_bot[2]));
+        // Positive-only Sobel Y kernel
+        gy = (shift_bot[0] + 2*shift_bot[1] + shift_bot[2]) -
+            (shift_top[0] + 2*shift_top[1] + shift_top[2]);
 
-        // Approximate magnitude and downscale to 4-bit
-        mag = ($unsigned(gx[7:4]) + $unsigned(gy[7:4]));
+        // Combine magnitudes
+        mag = gx + gy; // always non-negative
     end
 
-    assign pixel_out = mag[3:0];
-    // assign out_ready = ready_shift[2]; // valid after 3x3 window is ready
+    // Downscale to 4-bit pixel output
+    assign pixel_out = $unsigned(mag)[7:4];
+
+    // Ready signal (needs proper pipeline if using 3x3 window)
     assign out_ready = in_ready;
 
 endmodule

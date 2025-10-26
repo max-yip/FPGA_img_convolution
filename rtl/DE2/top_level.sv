@@ -134,14 +134,14 @@ module top_level(
 	);
 //
 //	
-//	logic [$clog2(476):0] centroid; 	//480 width -2 from edge -2 from denoise
+//	logic [$clog2(640):0] centroid;
 //	
 //	calc_centroid U8 (
 //		 .clk(clk_25_vga),
 //		 .rst(sys_reset),
 //		 .pixel_in(edge_data),
-//		 .centroid(centroid),
-//		 .in_ready(edge_ready)
+// 	     .in_ready(edge_ready),
+//		 .centroid(centroid)
 //	);
 //	
 //	//might need a parameter to choose between 4bit or 1bit for testing

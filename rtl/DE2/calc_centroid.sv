@@ -37,6 +37,7 @@ module calc_centroid #(
     localparam int X_W = $clog2(IMG_W);
     localparam int Y_W = $clog2(IMG_H);
     localparam int SUM_W = $clog2(IMG_W * ROI_HEIGHT) + 1;
+	 localparam ROW_COUNT_LOG2 = $clog2(ROI_HEIGHT);
 
     // Counters
     logic [X_W-1:0] x_cnt;
@@ -106,7 +107,7 @@ module calc_centroid #(
                         if (row_count != 0) begin
                             // centroid = average of midpoints
                             // if ROI_HEIGHT is power of 2, use shift
-                            centroid_x_r <= sum_midpoints >> $clog2(row_count);
+                            centroid_x_r <= sum_midpoints >> ROW_COUNT_LOG2;
                             line_lost_r <= 0;
                         end else begin
                             centroid_x_r <= IMG_W/2;

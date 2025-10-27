@@ -36,7 +36,7 @@ module calc_centroid_tb;
     reg [11:0] image_mem [0:TOTAL_PIXELS-1];
     integer i;
     initial begin
-        $readmemh("simulation/line_img.hex", image_mem);
+        $readmemh("simulation/image_12bit.hex", image_mem);
         vga_ready = 0;
         i = 0;
     end

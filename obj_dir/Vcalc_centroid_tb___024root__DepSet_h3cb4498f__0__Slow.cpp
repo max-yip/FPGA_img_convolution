@@ -21,16 +21,17 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___eval_initial__TOP(Vcalc_centroid
     Vcalc_centroid_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     auto& vlSelfRef = std::ref(*vlSelf).get();
     // Init
-    VlWide<6>/*191:0*/ __Vtemp_1;
+    VlWide<7>/*223:0*/ __Vtemp_1;
     VlWide<6>/*191:0*/ __Vtemp_2;
     // Body
     __Vtemp_1[0U] = 0x2e686578U;
-    __Vtemp_1[1U] = 0x5f696d67U;
-    __Vtemp_1[2U] = 0x6c696e65U;
-    __Vtemp_1[3U] = 0x696f6e2fU;
-    __Vtemp_1[4U] = 0x756c6174U;
-    __Vtemp_1[5U] = 0x73696dU;
-    VL_READMEM_N(true, 12, 307200, 0, VL_CVT_PACK_STR_NW(6, __Vtemp_1)
+    __Vtemp_1[1U] = 0x32626974U;
+    __Vtemp_1[2U] = 0x67655f31U;
+    __Vtemp_1[3U] = 0x2f696d61U;
+    __Vtemp_1[4U] = 0x74696f6eU;
+    __Vtemp_1[5U] = 0x6d756c61U;
+    __Vtemp_1[6U] = 0x7369U;
+    VL_READMEM_N(true, 12, 307200, 0, VL_CVT_PACK_STR_NW(7, __Vtemp_1)
                  ,  &(vlSelfRef.calc_centroid_tb__DOT__image_mem)
                  , 0, ~0ULL);
     vlSelfRef.calc_centroid_tb__DOT__vga_ready = 0U;
@@ -275,15 +276,14 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___ctor_var_reset(Vcalc_centroid_tb
     vlSelf->calc_centroid_tb__DOT__U6__DOT____Vlvbound_hfa9c3548__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 12605841925673077863ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__x_cnt = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 5793866427279514706ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__y_cnt = VL_SCOPED_RAND_RESET_I(9, __VscopeHash, 16448374046127921419ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_sum_x = VL_SCOPED_RAND_RESET_I(26, __VscopeHash, 4211132687817201744ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_count = VL_SCOPED_RAND_RESET_I(17, __VscopeHash, 17142425702809729290ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__roi_sum_x = VL_SCOPED_RAND_RESET_I(26, __VscopeHash, 13552776910685940034ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__roi_count = VL_SCOPED_RAND_RESET_I(17, __VscopeHash, 2214646380606788592ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__first_pixel = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 11513476747494212454ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__last_pixel = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 16101376705276170804ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_active = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 15160959718954882ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__sum_midpoints = VL_SCOPED_RAND_RESET_I(17, __VscopeHash, 130904221019038715ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_count = VL_SCOPED_RAND_RESET_I(6, __VscopeHash, 17142425702809729290ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__centroid_x_r = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 5073701091843270533ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__line_valid_r = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 3804397407975384383ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__line_lost_r = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 7802677733004570572ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_centroid_x_r = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 11529785989846467869ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_valid_r = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 1639119400919091120ull);
     vlSelf->__Vtrigprevexpr___TOP__calc_centroid_tb__DOT__clk_video__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 6087266393576139150ull);
     vlSelf->__Vtrigprevexpr___TOP__calc_centroid_tb__DOT__sys_reset__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 17733845618329722363ull);
     for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {

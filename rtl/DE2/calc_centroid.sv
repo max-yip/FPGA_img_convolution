@@ -22,17 +22,15 @@ module calc_centroid #(
     parameter int IMG_W      = 640,
     parameter int IMG_H      = 480,
     parameter int ROI_HEIGHT = 60,       // bottom rows to consider
-    parameter int THRESHOLD  = 0          // 4-bit threshold for pixel
+    parameter int THRESHOLD  = 0         // 4-bit threshold for pixel
 )(
     input  logic           clk,
     input  logic           rst,
     input  logic           in_ready,       // asserted once per pixel
-    input  logic [3:0]     pixel_in,      // 4-bit edge magnitude
+    input  logic [3:0]     pixel_in,       // 4-bit edge magnitude
     output logic [$clog2(IMG_W)-1:0] centroid_x,
     output logic           line_valid,
     output logic           line_lost
-    // output logic [$clog2(IMG_W)-1:0] row_centroid_x,
-    // output logic           row_valid
 );
 
     // Derived constants
@@ -44,19 +42,13 @@ module calc_centroid #(
     localparam int Y_W = $clog2(IMG_H);
     localparam int SUMX_W = $clog2(IMG_W*ROI_HEIGHT*IMG_W) + 1;
     localparam int CNT_W = $clog2(MAX_PIXELS_IN_ROI+1) + 1;
-
-
-    logic row_valid;
-    logic [$clog2(IMG_W)-1:0] row_centroid_x;
-
+    localparam int FIXED_W = 8; // number of fractional bits
 
     // Counters
     logic [X_W-1:0] x_cnt;
     logic [Y_W-1:0] y_cnt;
 
-    // Accumulators
-    logic [SUMX_W-1:0] row_sum_x;
-    logic [CNT_W-1:0]  row_count;
+    // Accumulators for ROI only
     logic [SUMX_W-1:0] roi_sum_x;
     logic [CNT_W-1:0]  roi_count;
 
@@ -64,66 +56,50 @@ module calc_centroid #(
     logic [$clog2(IMG_W)-1:0] centroid_x_r;
     logic                     line_valid_r;
     logic                     line_lost_r;
-    logic [$clog2(IMG_W)-1:0] row_centroid_x_r;
-    logic                     row_valid_r;
 
-    assign centroid_x     = centroid_x_r;
-    assign line_valid     = line_valid_r;
-    assign line_lost      = line_lost_r;
-    assign row_centroid_x = row_centroid_x_r;
-    assign row_valid      = row_valid_r;
+    assign centroid_x = centroid_x_r;
+    assign line_valid = line_valid_r;
+    assign line_lost  = line_lost_r;
 
     // Thresholded 1-bit pixel
     logic pixel_bin;
     assign pixel_bin = (pixel_in > THRESHOLD) ? 1'b1 : 1'b0;
 
+    // Fixed-point variables
+    logic [FIXED_W-1:0] inv_count;
+    logic [SUMX_W+FIXED_W-1:0] product;
+    logic [$clog2(IMG_W)-1:0] centroid_calc;
+
     always_ff @(posedge clk) begin
         if (rst) begin
             x_cnt <= 0;
             y_cnt <= 0;
-            row_sum_x <= 0;
-            row_count <= 0;
             roi_sum_x <= 0;
             roi_count <= 0;
             centroid_x_r <= 0;
-            row_centroid_x_r <= 0;
             line_valid_r <= 0;
-            row_valid_r <= 0;
             line_lost_r <= 0;
         end else begin
-            // default: single-cycle valid pulses
             line_valid_r <= 0;
-            row_valid_r  <= 0;
 
             if (in_ready) begin
                 // accumulate if pixel active and in ROI
                 if (pixel_bin && (y_cnt >= ROI_START_ROW)) begin
-                    row_sum_x <= row_sum_x + x_cnt;
-                    row_count <= row_count + 1;
                     roi_sum_x <= roi_sum_x + x_cnt;
                     roi_count <= roi_count + 1;
                 end
 
                 // end of row
                 if (x_cnt == IMG_W-1) begin
-                    // per-row centroid
-                    if (y_cnt >= ROI_START_ROW) begin
-                        if (row_count != 0)
-                            row_centroid_x_r <= row_sum_x / row_count;
-                        else
-                            row_centroid_x_r <= IMG_W >> 1; // center if lost
-                        row_valid_r <= 1;
-                    end
-
-                    // reset row accumulators
-                    row_sum_x <= 0;
-                    row_count <= 0;
-
-                    // next row
+                    // end of frame?
                     if (y_cnt == IMG_H-1) begin
-                        // end of frame: compute frame centroid
                         if (roi_count != 0) begin
-                            centroid_x_r <= roi_sum_x / roi_count;
+                            // compute fixed-point reciprocal
+                            inv_count <= (1 << FIXED_W) / roi_count;
+                            product   <= roi_sum_x * inv_count;
+                            centroid_calc <= product >> FIXED_W;
+
+                            centroid_x_r <= centroid_calc;
                             line_lost_r  <= 0;
                         end else begin
                             centroid_x_r <= IMG_W >> 1;
@@ -131,10 +107,9 @@ module calc_centroid #(
                         end
                         line_valid_r <= 1;
 
-                        // reset frame accumulators
+                        // reset accumulators
                         roi_sum_x <= 0;
                         roi_count <= 0;
-
                         y_cnt <= 0;
                     end else begin
                         y_cnt <= y_cnt + 1;
@@ -146,5 +121,4 @@ module calc_centroid #(
             end
         end
     end
-
 endmodule

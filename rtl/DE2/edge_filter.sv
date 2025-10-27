@@ -32,6 +32,7 @@ module edge_filter #(
     // Sobel result
     logic signed [7:0] gx, gy;
     logic signed [8:0] mag;
+	 logic [8:0] uns_mag;
 
     // Pipeline ready
     logic [2:0] ready_shift;
@@ -99,7 +100,8 @@ module edge_filter #(
     end
 
     // Downscale to 4-bit pixel output
-    assign pixel_out = $unsigned(mag)[7:4];
+	 assign uns_mag = $unsigned(mag);
+    assign pixel_out = uns_mag[7:4];
 
     // Ready signal (needs proper pipeline if using 3x3 window)
     assign out_ready = in_ready;

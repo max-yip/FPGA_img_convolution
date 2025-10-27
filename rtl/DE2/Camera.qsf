@@ -1127,6 +1127,9 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OV7670_SIOD
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to OV7670_SIOC
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name SYSTEMVERILOG_FILE seven_seg.sv
+set_global_assignment -name SYSTEMVERILOG_FILE display.sv
+set_global_assignment -name SYSTEMVERILOG_FILE calc_centroid.sv
 set_global_assignment -name SDC_FILE Camera.out.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE grey_to_rgb.sv
 set_global_assignment -name SYSTEMVERILOG_FILE edge_filter.sv

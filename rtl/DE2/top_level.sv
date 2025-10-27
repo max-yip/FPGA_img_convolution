@@ -18,6 +18,11 @@ module top_level(
 	output logic        VGA_BLANK_N,
 	output logic        VGA_SYNC_N,
 	output logic        VGA_CLK,
+	output [6:0] HEX0,
+   output [6:0] HEX1,
+   output [6:0] HEX2,
+   output [6:0] HEX3,
+	output [7:0] LEDG,
 	
 	input logic [3:0] KEY
 
@@ -135,15 +140,38 @@ module top_level(
 //
 //	
 //	logic [$clog2(640):0] centroid;
-//	DONE: need to test in hardwarer to determine noise
-//	calc_centroid U8 (
-//		 .clk(clk_25_vga),
-//		 .rst(sys_reset),
-//		 .pixel_in(edge_data),
-// 	     .in_ready(edge_ready),
-//		 .centroid(centroid)
-//	);
-//	
+//	DONE: need to test in hardware to determine noise
+	calc_centroid #(
+        .IMG_W(640),
+        .IMG_H(480),
+        .ROI_HEIGHT(60),
+        .THRESHOLD(0)
+    ) U8 (
+         .clk(clk_video),
+         .rst(sys_reset),
+         .pixel_in(edge_data),
+         .in_ready(edge_ready),
+         .centroid_x(centroid_x),
+         .line_valid(line_valid),
+         .line_lost(line_lost)
+    );
+	 
+	 
+	 assign LEDG[0] = line_valid;
+	 assign LEDG[1] = line_lost;
+	 
+	 display Udisplay (
+			.clk(clk_video),
+			.value(centroid_x),
+			.display0(HEX0),
+			.display1(HEX1),
+			.display2(HEX2),
+			.display3(HEX3)
+	 );
+	 
+	 
+	 
+	 
 //	//might need a parameter to choose between 4bit or 1bit for testing
 	logic [11:0] rgb_grey_pixel;
 	logic rgb_ready;

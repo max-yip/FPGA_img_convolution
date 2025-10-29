@@ -23,6 +23,7 @@ module top_level(
    output [6:0] HEX2,
    output [6:0] HEX3,
 	output [7:0] LEDG,
+	output [17:0] LEDR,
 	
 	input logic [3:0] KEY
 
@@ -162,7 +163,7 @@ module top_level(
 	calc_centroid #(
         .IMG_W(640),
         .IMG_H(480),
-        .ROI_HEIGHT(60),
+        .ROI_HEIGHT(32),
         .THRESHOLD(2)
     ) U8 (
          .clk(clk_video),
@@ -188,7 +189,7 @@ module top_level(
 			.display3(HEX3)
 	 );
 	 
-	 
+	 assign LEDR[10:0] = centroid_x;
 	 
 	 
 //	//might need a parameter to choose between 4bit or 1bit for testing

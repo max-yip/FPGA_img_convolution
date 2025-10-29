@@ -18,7 +18,7 @@ Vcalc_centroid_tb__Syms::Vcalc_centroid_tb__Syms(VerilatedContext* contextp, con
     , TOP{this, namep}
 {
         // Check resources
-        Verilated::stackCheck(168);
+        Verilated::stackCheck(218);
     // Configure time unit / time precision
     _vm_contextp__->timeunit(-9);
     _vm_contextp__->timeprecision(-12);

@@ -36,7 +36,7 @@ module calc_centroid_tb;
     reg [11:0] image_mem [0:TOTAL_PIXELS-1];
     integer i;
     initial begin
-        $readmemh("simulation/image_12bit.hex", image_mem);
+        $readmemh("simulation/line_img.hex", image_mem);
         vga_ready = 0;
         i = 0;
     end
@@ -97,7 +97,7 @@ module calc_centroid_tb;
     calc_centroid #(
         .IMG_W(IMG_W),
         .IMG_H(IMG_H),
-        .ROI_HEIGHT(60),
+        .ROI_HEIGHT(64),
         .THRESHOLD(0)
     ) U8 (
          .clk(clk_video),
@@ -153,7 +153,6 @@ module calc_centroid_tb;
                 $display("Frame centroid_x = %0d", centroid_x);
         end
     end
-
     // ---------------------------
     // Finish simulation
     // ---------------------------

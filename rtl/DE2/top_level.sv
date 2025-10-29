@@ -121,6 +121,22 @@ module top_level(
 		 .in_ready(vga_ready),
 	    .out_ready(grey_ready)
 	);
+	
+	logic [3:0] gaussian_data;
+	logic 		gaussian_ready;
+	gaussian_filter #(
+		.IMG_W(640),
+		.IMG_H(480)
+	) Udenoise (
+		.clk(clk_video),
+		.rst(sys_reset),
+		.pixel_in(grey_data),
+		.pixel_out(gaussian_data),
+		.in_ready(grey_ready),
+		.out_ready(gaussian_ready)
+	);
+
+	
 //	
 	logic [3:0] edge_data;
 	logic 		edge_ready;
@@ -132,9 +148,9 @@ module top_level(
 	) U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
 		 .clk(clk_video),
 		 .rst(sys_reset),
-		 .pixel_in(grey_data),
+		 .pixel_in(gaussian_data),
 		 .pixel_out(edge_data),
-		 .in_ready(grey_ready),
+		 .in_ready(gaussian_ready),
 		 .out_ready(edge_ready),
 	);
 //
@@ -160,6 +176,7 @@ module top_level(
 	 assign LEDG[0] = line_valid;
 	 assign LEDG[1] = line_lost;
 	 
+	 //THIS CODE DOES NOT WORK DONT USE
 	 display Udisplay (
 			.clk(clk_video),
 			.value(centroid_x),

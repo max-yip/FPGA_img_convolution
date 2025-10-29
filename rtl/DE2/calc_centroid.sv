@@ -28,7 +28,7 @@ module calc_centroid #(
     input  logic           rst,
     input  logic           in_ready,
     input  logic [3:0]     pixel_in,
-    output logic [$clog2(IMG_W)-1:0] centroid_x,
+    output logic [10:0] centroid_x,
     output logic           line_valid,
     output logic           line_lost
 );

@@ -1,4 +1,3 @@
-
 // calc_centroid_line_tracker.sv
 // SystemVerilog module: ROI-based centroid_x with per-row output and line-lost detection.
 // Assumes raster scan, left-to-right top-to-bottom, with frame_start/frame_end pulses.
@@ -33,11 +32,14 @@ module calc_centroid #(
     output logic           line_lost
 );
 
-    localparam int ROI_START_ROW = IMG_H - ROI_HEIGHT;
+    localparam int ROI_START_ROW = IMG_H - ROI_HEIGHT;	// 480-64
     localparam int X_W = $clog2(IMG_W);
     localparam int Y_W = $clog2(IMG_H);
     localparam int SUM_W = $clog2(IMG_W * ROI_HEIGHT) + 1;
-	 localparam ROW_COUNT_LOG2 = $clog2(ROI_HEIGHT);
+    localparam int ROW_COUNT_LOG2 = $clog2(ROI_HEIGHT);
+
+    // Hold width: number of clocks to stretch the line_valid/line_lost pulse for visibility
+    parameter int VALID_HOLD_CYCLES = 8;
 
     // Counters
     logic [X_W-1:0] x_cnt;
@@ -52,9 +54,31 @@ module calc_centroid #(
     logic [SUM_W-1:0] sum_midpoints;
     logic [$clog2(ROI_HEIGHT)-1:0] row_count;
 
-    // Output registers
-    logic [$clog2(IMG_W)-1:0] centroid_x_r;
+    // Combinational: compute floor(log2(row_count)) -> use as shift amount
+    // This lets us approximate division by row_count via a right shift by the MSB position.
+    // Note: this is an approximation (division by nearest lower power-of-two).
+    logic [$clog2(ROI_HEIGHT)-1:0] row_count_msb;
+    integer i;
+    always_comb begin
+		 row_count_msb = '0;
+
+		 // scan from top bit down to find MSB
+		 find_msb: for (i = $clog2(ROI_HEIGHT)-1; i >= 0; i = i - 1) begin
+			 if (row_count[i]) begin
+					 row_count_msb = i;
+					 disable find_msb; // stop scanning once MSB found
+			 end
+		 end
+	 end
+
+
+    // Output registers (make centroid register 11 bits to match output width)
+    logic [10:0] centroid_x_r;
     logic line_valid_r, line_lost_r;
+
+    // Visibility / hold counter for the pulses
+    logic [$clog2(VALID_HOLD_CYCLES+1)-1:0] valid_hold_cnt;
+    logic valid_hold_active;
 
     assign centroid_x = centroid_x_r;
     assign line_valid  = line_valid_r;
@@ -76,8 +100,14 @@ module calc_centroid #(
             centroid_x_r <= IMG_W/2;
             line_valid_r <= 0;
             line_lost_r <= 0;
+            valid_hold_cnt <= '0;
+            valid_hold_active <= 1'b0;
         end else if (in_ready) begin
-            line_valid_r <= 0;
+            // Clear transient line_valid each cycle, we'll assert it (and hold) at frame end.
+            if (!valid_hold_active) begin
+                line_valid_r <= 0;
+                line_lost_r  <= 0;
+            end
 
             // Only process ROI rows
             if (y_cnt >= ROI_START_ROW) begin
@@ -105,17 +135,22 @@ module calc_centroid #(
                     if (y_cnt == IMG_H-1) begin
                         // End of frame
                         if (row_count != 0) begin
-                            // centroid = average of midpoints
-                            // if ROI_HEIGHT is power of 2, use shift
-                            centroid_x_r <= sum_midpoints >> ROW_COUNT_LOG2;
+                            // centroid = average of midpoints over actual row_count
+                            // Use a shift-based approximation (divide by nearest lower power-of-two)
+                            // to avoid variable division hardware. This is an approximation:
+                            // centroid ≈ sum_midpoints >> floor(log2(row_count))
+                            centroid_x_r <= (sum_midpoints >> row_count_msb);
                             line_lost_r <= 0;
                         end else begin
                             centroid_x_r <= IMG_W/2;
                             line_lost_r <= 1;
                         end
-                        line_valid_r <= 1;
+                        // Assert line_valid and start hold counter so downstream displays/LEDs can observe it
+                        line_valid_r <= 1'b1;
+                        valid_hold_active <= 1'b1;
+                        valid_hold_cnt <= VALID_HOLD_CYCLES - 1;
 
-                        // Reset accumulators
+                        // Reset accumulators for next frame
                         sum_midpoints <= 0;
                         row_count <= 0;
                         y_cnt <= 0;
@@ -137,6 +172,20 @@ module calc_centroid #(
                 end else begin
                     x_cnt <= x_cnt + 1;
                 end
+            end
+        end else begin
+            // in_ready low: optional behavior unchanged
+        end
+
+        // valid hold timing (stretch the pulse for visibility)
+        if (valid_hold_active) begin
+            if (valid_hold_cnt != 0) begin
+                valid_hold_cnt <= valid_hold_cnt - 1;
+            end else begin
+                valid_hold_active <= 1'b0;
+                line_valid_r <= 1'b0;
+                // keep line_lost_r asserted only during hold window; clear afterwards
+                line_lost_r <= 1'b0;
             end
         end
     end

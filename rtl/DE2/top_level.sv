@@ -155,13 +155,15 @@ module top_level(
 	);
 //
 //	
-//	logic [$clog2(640):0] centroid;
+	logic [10:0] centroid_x;
+	logic line_valid, line_lost;
+	
 //	DONE: need to test in hardware to determine noise
 	calc_centroid #(
         .IMG_W(640),
         .IMG_H(480),
         .ROI_HEIGHT(60),
-        .THRESHOLD(0)
+        .THRESHOLD(2)
     ) U8 (
          .clk(clk_video),
          .rst(sys_reset),

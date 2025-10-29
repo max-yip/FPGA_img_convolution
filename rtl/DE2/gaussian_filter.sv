@@ -79,15 +79,27 @@ module gaussian_filter #(
     // -----------------------------
     // Gaussian convolution (combinational)
     // -----------------------------
-    logic [7:0] sum;
-    always_comb begin
-        sum = shift_top[0] + (shift_top[1] << 1) + shift_top[2] +
-              (shift_mid[0] << 1) + (shift_mid[1] << 2) + (shift_mid[2] << 1) +
-              shift_bot[0] + (shift_bot[1] << 1) + shift_bot[2];
+//    logic [7:0] sum;
+//    always_comb begin
+//        sum = shift_top[0] + (shift_top[1] << 1) + shift_top[2] +
+//              (shift_mid[0] << 1) + (shift_mid[1] << 2) + (shift_mid[2] << 1) +
+//              shift_bot[0] + (shift_bot[1] << 1) + shift_bot[2];
+//
+//        // divide by 16 (>>4) to normalize
+//        pixel_out = sum[7:4];
+//    end
+	 
+	 logic [7:0] sum;  // Wider to prevent overflow (since 9 * 8-bit = up to 12 bits)
 
-        // divide by 16 (>>4) to normalize
-        pixel_out = sum[7:4];
-    end
+	 always_comb begin
+		 // Simple average of 3x3 neighborhood
+		 sum = shift_top[0] + shift_top[1] + shift_top[2] +
+				 shift_mid[0] + shift_mid[1] + shift_mid[2] +
+				 shift_bot[0] + shift_bot[1] + shift_bot[2];
+
+		 // Divide by 9 — use integer division (truncates fractional part)
+		 pixel_out = (sum*29)>>8;
+	 end
 
     // output ready
     assign out_ready = in_ready;

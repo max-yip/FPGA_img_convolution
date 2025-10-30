@@ -135,106 +135,6 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___stl_sequent__TOP__0(Vcalc_centro
     vlSelfRef.calc_centroid_tb__DOT__grey_data = (0xfU 
                                                   & ((IData)(vlSelfRef.calc_centroid_tb__DOT__U5__DOT__gray_temp) 
                                                      >> 4U));
-    vlSelfRef.calc_centroid_tb__DOT__U6__DOT__gx = 
-        (0xfffU & (((((((((((((((((((((IData)(0xffffffffU) 
-                                      * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                                      [0U]) + ((IData)(0xfffffffeU) 
-                                               * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                                               [1U])) 
-                                    + VL_SHIFTL_III(12,32,32, 
-                                                    vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                                                    [3U], 1U)) 
-                                   + vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                                   [4U]) + ((IData)(0xfffffffcU) 
-                                            * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                            [0U])) 
-                                 + ((IData)(0xfffffff8U) 
-                                    * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                    [1U])) + VL_SHIFTL_III(12,32,32, 
-                                                           vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                                           [3U], 3U)) 
-                               + VL_SHIFTL_III(12,32,32, 
-                                               vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                               [4U], 2U)) 
-                              + ((IData)(0xfffffffaU) 
-                                 * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                                 [0U])) + ((IData)(0xfffffff4U) 
-                                           * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                                           [1U])) + 
-                            ((IData)(0xcU) * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                             [3U])) + ((IData)(6U) 
-                                       * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                                       [4U])) + ((IData)(0xfffffffcU) 
-                                                 * 
-                                                 vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                                                 [0U])) 
-                         + ((IData)(0xfffffff8U) * 
-                            vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                            [1U])) + VL_SHIFTL_III(12,32,32, 
-                                                   vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                                                   [3U], 3U)) 
-                       + VL_SHIFTL_III(12,32,32, vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                                       [4U], 2U)) + 
-                      ((IData)(0xffffffffU) * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                       [0U])) + ((IData)(0xfffffffeU) 
-                                 * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                                 [1U])) + VL_SHIFTL_III(12,32,32, 
-                                                        vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                                                        [3U], 1U)) 
-                   + vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                   [4U]));
-    vlSelfRef.calc_centroid_tb__DOT__U6__DOT__gy = 
-        (0xfffU & (((((((((((((((((((((IData)(0xffffffffU) 
-                                      * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                                      [0U]) + ((IData)(0xfffffffcU) 
-                                               * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                               [0U])) 
-                                    + ((IData)(0xfffffffaU) 
-                                       * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                                       [0U])) + ((IData)(0xfffffffcU) 
-                                                 * 
-                                                 vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                                                 [0U])) 
-                                  + ((IData)(0xffffffffU) 
-                                     * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                                     [0U])) + ((IData)(0xfffffffeU) 
-                                               * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                                               [1U])) 
-                                + ((IData)(0xfffffff8U) 
-                                   * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                   [1U])) + ((IData)(0xfffffff4U) 
-                                             * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                                             [1U])) 
-                              + ((IData)(0xfffffff8U) 
-                                 * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                                 [1U])) + ((IData)(0xfffffffeU) 
-                                           * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                                           [1U])) + 
-                            VL_SHIFTL_III(12,32,32, 
-                                          vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                                          [3U], 1U)) 
-                           + VL_SHIFTL_III(12,32,32, 
-                                           vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                           [3U], 3U)) 
-                          + ((IData)(0xcU) * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                             [3U])) + VL_SHIFTL_III(12,32,32, 
-                                                    vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                                                    [3U], 3U)) 
-                        + VL_SHIFTL_III(12,32,32, vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                                        [3U], 1U)) 
-                       + vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0
-                       [4U]) + VL_SHIFTL_III(12,32,32, 
-                                             vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_1
-                                             [4U], 2U)) 
-                     + ((IData)(6U) * vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_2
-                        [4U])) + VL_SHIFTL_III(12,32,32, 
-                                               vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_3
-                                               [4U], 2U)) 
-                   + vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_4
-                   [4U]));
-    vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag = 
-        (0x1fffU & (VL_EXTENDS_II(13,12, (IData)(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__gx)) 
-                    + VL_EXTENDS_II(13,12, (IData)(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__gy))));
 }
 
 VL_ATTR_COLD void Vcalc_centroid_tb___024root___eval_triggers__stl(Vcalc_centroid_tb___024root* vlSelf);
@@ -321,6 +221,7 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___ctor_var_reset(Vcalc_centroid_tb
     }
     vlSelf->calc_centroid_tb__DOT__i = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 14150637409918923750ull);
     vlSelf->calc_centroid_tb__DOT__grey_data = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 3299624386217073830ull);
+    vlSelf->calc_centroid_tb__DOT__centroid_ready = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 16295801839814682666ull);
     vlSelf->calc_centroid_tb__DOT__ppm_file = 0;
     vlSelf->calc_centroid_tb__DOT__px_cnt = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 18289172391377642916ull);
     vlSelf->calc_centroid_tb__DOT__unnamedblk1__DOT__val = VL_SCOPED_RAND_RESET_I(32, __VscopeHash, 5399236312892732197ull);
@@ -356,9 +257,19 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___ctor_var_reset(Vcalc_centroid_tb
     vlSelf->calc_centroid_tb__DOT__U6__DOT__gx = VL_SCOPED_RAND_RESET_I(12, __VscopeHash, 9162568020036490148ull);
     vlSelf->calc_centroid_tb__DOT__U6__DOT__gy = VL_SCOPED_RAND_RESET_I(12, __VscopeHash, 14651028917093486477ull);
     vlSelf->calc_centroid_tb__DOT__U6__DOT__mag = VL_SCOPED_RAND_RESET_I(13, __VscopeHash, 6841135647463856190ull);
-    vlSelf->calc_centroid_tb__DOT__U6__DOT__ready_shift = VL_SCOPED_RAND_RESET_I(5, __VscopeHash, 56688268809291275ull);
+    vlSelf->calc_centroid_tb__DOT__U6__DOT__ready_shift = VL_SCOPED_RAND_RESET_I(7, __VscopeHash, 56688268809291275ull);
+    for (int __Vi0 = 0; __Vi0 < 25; ++__Vi0) {
+        vlSelf->calc_centroid_tb__DOT__U6__DOT__gx_s1[__Vi0] = VL_SCOPED_RAND_RESET_I(16, __VscopeHash, 5269942595892946792ull);
+    }
+    for (int __Vi0 = 0; __Vi0 < 25; ++__Vi0) {
+        vlSelf->calc_centroid_tb__DOT__U6__DOT__gy_s1[__Vi0] = VL_SCOPED_RAND_RESET_I(16, __VscopeHash, 11895716193518383367ull);
+    }
+    vlSelf->calc_centroid_tb__DOT__U6__DOT__gx_s2 = VL_SCOPED_RAND_RESET_I(18, __VscopeHash, 7919950673028007385ull);
+    vlSelf->calc_centroid_tb__DOT__U6__DOT__gy_s2 = VL_SCOPED_RAND_RESET_I(18, __VscopeHash, 1927707049510943351ull);
+    vlSelf->calc_centroid_tb__DOT__U6__DOT__mag_s3 = VL_SCOPED_RAND_RESET_I(19, __VscopeHash, 18249311258450155362ull);
     vlSelf->calc_centroid_tb__DOT__U6__DOT__unnamedblk1__DOT__i = 0;
     vlSelf->calc_centroid_tb__DOT__U6__DOT__unnamedblk2__DOT__j = 0;
+    vlSelf->calc_centroid_tb__DOT__U6__DOT__unnamedblk3__DOT__i = 0;
     vlSelf->calc_centroid_tb__DOT__U6__DOT____Vlvbound_h089f645b__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 6087012389115397813ull);
     vlSelf->calc_centroid_tb__DOT__U6__DOT____Vlvbound_h8256e297__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 13599101192942966661ull);
     vlSelf->calc_centroid_tb__DOT__U6__DOT____Vlvbound_h8b13eaf3__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 9461182505693591370ull);
@@ -377,20 +288,18 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___ctor_var_reset(Vcalc_centroid_tb
     vlSelf->calc_centroid_tb__DOT__U8__DOT__sum_p = VL_SCOPED_RAND_RESET_I(15, __VscopeHash, 150242012001394477ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__pixel_count = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 16367263833907990988ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__row_idx = VL_SCOPED_RAND_RESET_I(6, __VscopeHash, 13668830800791181376ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_valid_reg = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 14615632972887039786ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_lost_reg = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 4312208198483715294ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__current_row_sum_x = VL_SCOPED_RAND_RESET_I(23, __VscopeHash, 6860522053637081269ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__current_row_sum_p = VL_SCOPED_RAND_RESET_I(15, __VscopeHash, 7504738972807200ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT____Vcellinp__Udiv__denom = VL_SCOPED_RAND_RESET_I(15, __VscopeHash, 10647348209508301552ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_valid_pipe = VL_SCOPED_RAND_RESET_I(5, __VscopeHash, 16194364806177120778ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_lost_pipe = VL_SCOPED_RAND_RESET_I(5, __VscopeHash, 12832753424341677570ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_valid_pipe = VL_SCOPED_RAND_RESET_I(6, __VscopeHash, 16194364806177120778ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_lost_pipe = VL_SCOPED_RAND_RESET_I(6, __VscopeHash, 12832753424341677570ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__unnamedblk1__DOT__i = 0;
-    for (int __Vi0 = 0; __Vi0 < 5; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 6; ++__Vi0) {
         vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[__Vi0] = VL_SCOPED_RAND_RESET_I(11, __VscopeHash, 14845675151162278540ull);
     }
     vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk1__DOT__i = 0;
     vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk2__DOT__i = 0;
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT____Vlvbound_h05ca8574__0 = VL_SCOPED_RAND_RESET_I(11, __VscopeHash, 10477638409829177580ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT____Vlvbound_he67cc5ec__0 = VL_SCOPED_RAND_RESET_I(11, __VscopeHash, 12102043468217840305ull);
     vlSelf->__Vtrigprevexpr___TOP__calc_centroid_tb__DOT__clk_video__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 6087266393576139150ull);
     vlSelf->__Vtrigprevexpr___TOP__calc_centroid_tb__DOT__sys_reset__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 17733845618329722363ull);
     for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {

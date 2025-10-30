@@ -2,6 +2,7 @@
 /* verilator lint_off UNUSEDSIGNAL */
 /* verilator lint_off UNUSEDPARAM */
 /* verilator lint_off WIDTHEXPAND */
+/* verilator lint_off WIDTHTRUNC */
 
 module edge_filter #(
     parameter int IMG_W = 638,

@@ -94,6 +94,8 @@ module calc_centroid_tb;
          .out_ready(edge_ready)
     );
 
+    logic centroid_ready;
+    
     calc_centroid #(
         .IMG_W(IMG_W),
         .IMG_H(IMG_H),
@@ -105,6 +107,7 @@ module calc_centroid_tb;
          .pixel_in(edge_data),
          .in_ready(edge_ready),
          .centroid_x(centroid_x),
+         .out_ready(centroid_ready),
          .line_valid(line_valid),
          .line_lost(line_lost)
         //  .row_centroid_x(),

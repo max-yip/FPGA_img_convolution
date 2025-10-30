@@ -67,7 +67,7 @@ module calc_centroid #(
     // ============================================================
     // Divider IP instantiation
     // ============================================================
-    divide_ip Udiv (
+    divide_verilator Udiv (
         .aclr(rst),
         .clock(clk),
         .numer(sum_p == 0 ? 0 : sum_x), //might need a reg if error

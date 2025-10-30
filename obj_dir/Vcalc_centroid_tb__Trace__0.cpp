@@ -28,9 +28,12 @@ void Vcalc_centroid_tb___024root__trace_chg_0_sub_0(Vcalc_centroid_tb___024root*
                                         >> 8U))),4);
         bufp->chgBit(oldp+1,((1U & ((IData)(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__ready_shift) 
                                     >> 4U))));
-        bufp->chgSData(oldp+2,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__centroid_x_reg),11);
-        bufp->chgBit(oldp+3,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_valid_reg));
-        bufp->chgBit(oldp+4,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_lost_reg));
+        bufp->chgSData(oldp+2,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe
+                               [4U]),11);
+        bufp->chgBit(oldp+3,((1U & ((IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_valid_pipe) 
+                                    >> 4U))));
+        bufp->chgBit(oldp+4,((1U & ((IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_lost_pipe) 
+                                    >> 4U))));
         bufp->chgSData(oldp+5,((0xfffU & ((0xf00U & (IData)(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag)) 
                                           | ((0xf0U 
                                               & ((IData)(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag) 
@@ -70,29 +73,45 @@ void Vcalc_centroid_tb___024root__trace_chg_0_sub_0(Vcalc_centroid_tb___024root*
         bufp->chgCData(oldp+35,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__ready_shift),5);
         bufp->chgIData(oldp+36,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__unnamedblk1__DOT__i),32);
         bufp->chgIData(oldp+37,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__unnamedblk2__DOT__j),32);
-        bufp->chgIData(oldp+38,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x),25);
-        bufp->chgIData(oldp+39,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p),20);
+        bufp->chgIData(oldp+38,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x),23);
+        bufp->chgSData(oldp+39,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p),15);
         bufp->chgSData(oldp+40,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__pixel_count),10);
-        bufp->chgSData(oldp+41,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__row_count),10);
-        bufp->chgSData(oldp+42,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__window_start_row),10);
+        bufp->chgCData(oldp+41,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__row_idx),6);
+        bufp->chgBit(oldp+42,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_valid_reg));
+        bufp->chgBit(oldp+43,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_lost_reg));
+        bufp->chgIData(oldp+44,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__current_row_sum_x),23);
+        bufp->chgSData(oldp+45,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__current_row_sum_p),15);
+        bufp->chgCData(oldp+46,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_valid_pipe),5);
+        bufp->chgCData(oldp+47,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_lost_pipe),5);
+        bufp->chgIData(oldp+48,(((0U == (IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p))
+                                  ? 0U : vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x)),23);
+        bufp->chgSData(oldp+49,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT____Vcellinp__Udiv__denom),15);
+        bufp->chgSData(oldp+50,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[0]),11);
+        bufp->chgSData(oldp+51,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[1]),11);
+        bufp->chgSData(oldp+52,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[2]),11);
+        bufp->chgSData(oldp+53,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[3]),11);
+        bufp->chgSData(oldp+54,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[4]),11);
+        bufp->chgIData(oldp+55,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk1__DOT__i),32);
+        bufp->chgIData(oldp+56,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk2__DOT__i),32);
+        bufp->chgIData(oldp+57,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__unnamedblk1__DOT__i),32);
     }
     if (VL_UNLIKELY((vlSelfRef.__Vm_traceActivity[2U]))) {
-        bufp->chgSData(oldp+43,(vlSelfRef.calc_centroid_tb__DOT__video_data),12);
-        bufp->chgCData(oldp+44,(vlSelfRef.calc_centroid_tb__DOT__grey_data),4);
-        bufp->chgCData(oldp+45,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
+        bufp->chgSData(oldp+58,(vlSelfRef.calc_centroid_tb__DOT__video_data),12);
+        bufp->chgCData(oldp+59,(vlSelfRef.calc_centroid_tb__DOT__grey_data),4);
+        bufp->chgCData(oldp+60,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
                                          >> 8U))),4);
-        bufp->chgCData(oldp+46,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
+        bufp->chgCData(oldp+61,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
                                          >> 4U))),4);
-        bufp->chgCData(oldp+47,((0xfU & (IData)(vlSelfRef.calc_centroid_tb__DOT__video_data))),4);
-        bufp->chgCData(oldp+48,(vlSelfRef.calc_centroid_tb__DOT__U5__DOT__gray_temp),8);
+        bufp->chgCData(oldp+62,((0xfU & (IData)(vlSelfRef.calc_centroid_tb__DOT__video_data))),4);
+        bufp->chgCData(oldp+63,(vlSelfRef.calc_centroid_tb__DOT__U5__DOT__gray_temp),8);
     }
-    bufp->chgBit(oldp+49,(vlSelfRef.calc_centroid_tb__DOT__clk_video));
-    bufp->chgBit(oldp+50,(vlSelfRef.calc_centroid_tb__DOT__sys_reset));
-    bufp->chgBit(oldp+51,(vlSelfRef.calc_centroid_tb__DOT__vga_ready));
-    bufp->chgIData(oldp+52,(vlSelfRef.calc_centroid_tb__DOT__i),32);
-    bufp->chgIData(oldp+53,(vlSelfRef.calc_centroid_tb__DOT__ppm_file),32);
-    bufp->chgIData(oldp+54,(vlSelfRef.calc_centroid_tb__DOT__px_cnt),32);
-    bufp->chgIData(oldp+55,(vlSelfRef.calc_centroid_tb__DOT__unnamedblk1__DOT__val),32);
+    bufp->chgBit(oldp+64,(vlSelfRef.calc_centroid_tb__DOT__clk_video));
+    bufp->chgBit(oldp+65,(vlSelfRef.calc_centroid_tb__DOT__sys_reset));
+    bufp->chgBit(oldp+66,(vlSelfRef.calc_centroid_tb__DOT__vga_ready));
+    bufp->chgIData(oldp+67,(vlSelfRef.calc_centroid_tb__DOT__i),32);
+    bufp->chgIData(oldp+68,(vlSelfRef.calc_centroid_tb__DOT__ppm_file),32);
+    bufp->chgIData(oldp+69,(vlSelfRef.calc_centroid_tb__DOT__px_cnt),32);
+    bufp->chgIData(oldp+70,(vlSelfRef.calc_centroid_tb__DOT__unnamedblk1__DOT__val),32);
 }
 
 void Vcalc_centroid_tb___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {

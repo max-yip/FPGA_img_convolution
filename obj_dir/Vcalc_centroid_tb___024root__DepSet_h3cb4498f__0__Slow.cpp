@@ -122,6 +122,9 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___stl_sequent__TOP__0(Vcalc_centro
     Vcalc_centroid_tb__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     auto& vlSelfRef = std::ref(*vlSelf).get();
     // Body
+    vlSelfRef.calc_centroid_tb__DOT__U8__DOT____Vcellinp__Udiv__denom 
+        = ((0U == (IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p))
+            ? 1U : (IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p));
     vlSelfRef.calc_centroid_tb__DOT__U5__DOT__gray_temp 
         = (0xffU & ((((IData)(5U) * (0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
                                              >> 8U))) 
@@ -364,14 +367,30 @@ VL_ATTR_COLD void Vcalc_centroid_tb___024root___ctor_var_reset(Vcalc_centroid_tb
     vlSelf->calc_centroid_tb__DOT__U6__DOT____Vlvbound_hfa9c3548__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 12605841925673077863ull);
     vlSelf->calc_centroid_tb__DOT__U6__DOT____Vlvbound_ha2cf1aa2__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 9090798864681466471ull);
     vlSelf->calc_centroid_tb__DOT__U6__DOT____Vlvbound_h3d11f6d6__0 = VL_SCOPED_RAND_RESET_I(4, __VscopeHash, 10677619948508410708ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__sum_x = VL_SCOPED_RAND_RESET_I(25, __VscopeHash, 6610398229315908661ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__sum_p = VL_SCOPED_RAND_RESET_I(20, __VscopeHash, 150242012001394477ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__centroid_x_reg = VL_SCOPED_RAND_RESET_I(11, __VscopeHash, 8506544113589869521ull);
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
+        vlSelf->calc_centroid_tb__DOT__U8__DOT__row_sum_x[__Vi0] = VL_SCOPED_RAND_RESET_I(11, __VscopeHash, 4211132687817201744ull);
+    }
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
+        vlSelf->calc_centroid_tb__DOT__U8__DOT__row_sum_p[__Vi0] = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 2526134175301533063ull);
+    }
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__sum_x = VL_SCOPED_RAND_RESET_I(23, __VscopeHash, 6610398229315908661ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__sum_p = VL_SCOPED_RAND_RESET_I(15, __VscopeHash, 150242012001394477ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__pixel_count = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 16367263833907990988ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_count = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 17142425702809729290ull);
-    vlSelf->calc_centroid_tb__DOT__U8__DOT__window_start_row = VL_SCOPED_RAND_RESET_I(10, __VscopeHash, 2136601755688486660ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__row_idx = VL_SCOPED_RAND_RESET_I(6, __VscopeHash, 13668830800791181376ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__line_valid_reg = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 14615632972887039786ull);
     vlSelf->calc_centroid_tb__DOT__U8__DOT__line_lost_reg = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 4312208198483715294ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__current_row_sum_x = VL_SCOPED_RAND_RESET_I(23, __VscopeHash, 6860522053637081269ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__current_row_sum_p = VL_SCOPED_RAND_RESET_I(15, __VscopeHash, 7504738972807200ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT____Vcellinp__Udiv__denom = VL_SCOPED_RAND_RESET_I(15, __VscopeHash, 10647348209508301552ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_valid_pipe = VL_SCOPED_RAND_RESET_I(5, __VscopeHash, 16194364806177120778ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__line_lost_pipe = VL_SCOPED_RAND_RESET_I(5, __VscopeHash, 12832753424341677570ull);
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__unnamedblk1__DOT__i = 0;
+    for (int __Vi0 = 0; __Vi0 < 5; ++__Vi0) {
+        vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[__Vi0] = VL_SCOPED_RAND_RESET_I(11, __VscopeHash, 14845675151162278540ull);
+    }
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk1__DOT__i = 0;
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk2__DOT__i = 0;
+    vlSelf->calc_centroid_tb__DOT__U8__DOT__Udiv__DOT____Vlvbound_h05ca8574__0 = VL_SCOPED_RAND_RESET_I(11, __VscopeHash, 10477638409829177580ull);
     vlSelf->__Vtrigprevexpr___TOP__calc_centroid_tb__DOT__clk_video__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 6087266393576139150ull);
     vlSelf->__Vtrigprevexpr___TOP__calc_centroid_tb__DOT__sys_reset__0 = VL_SCOPED_RAND_RESET_I(1, __VscopeHash, 17733845618329722363ull);
     for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {

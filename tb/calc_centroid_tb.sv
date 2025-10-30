@@ -157,7 +157,7 @@ module calc_centroid_tb;
     // Finish simulation
     // ---------------------------
     initial begin
-        #20000000; // enough time for full frame
+        #6200000; // enough time for full frame
         $fclose(ppm_file);
         $display("Simulation done. PPM output saved.");
         $stop;

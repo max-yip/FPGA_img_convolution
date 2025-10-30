@@ -4,8 +4,8 @@
 /* verilator lint_off WIDTHEXPAND */
 
 module edge_filter #(
-    parameter int IMG_W = 640,
-    parameter int IMG_H = 480
+    parameter int IMG_W = 638,
+    parameter int IMG_H = 478
 )(
     input  logic        clk,
     input  logic        rst,

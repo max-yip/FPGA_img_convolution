@@ -157,6 +157,7 @@ module top_level(
 //
 //	
 	logic [10:0] centroid_x;
+	logic centroid_ready;
 	logic line_valid, line_lost;
 	
 //	DONE: need to test in hardware to determine noise
@@ -170,6 +171,7 @@ module top_level(
          .rst(sys_reset),
          .pixel_in(edge_data),
          .in_ready(edge_ready),
+			.out_ready(centroid_ready),
          .centroid_x(centroid_x),
          .line_valid(line_valid),
          .line_lost(line_lost)
@@ -179,9 +181,10 @@ module top_level(
 	 assign LEDG[0] = line_valid;
 	 assign LEDG[1] = line_lost;
 	 
-	 //THIS CODE DOES NOT WORK DONT USE
+	 
 	 display Udisplay (
 			.clk(clk_video),
+			.ready(centroid_ready),
 			.value(centroid_x),
 			.display0(HEX0),
 			.display1(HEX1),

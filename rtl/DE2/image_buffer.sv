@@ -46,8 +46,8 @@ module image_buffer
 					image_end <= 1'b1;
 				end
 				//Dodgy Manoeuvre to scale the VGA
-				x_src = x_vga[9:1]; //Divide by two
-				y_src = y_vga[8:1];
+				x_src <= x_vga[9:1]; //Divide by two
+				y_src <= y_vga[8:1];
 				rdaddress <= ({9'd0, y_src} << 8) + ({9'd0, y_src} << 6) + {8'd0, x_src};
 			end
 		end

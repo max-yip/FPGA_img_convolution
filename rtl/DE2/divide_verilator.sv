@@ -8,7 +8,7 @@ module divide_verilator (
     output logic [10:0] quotient
 );
 
-    parameter LATENCY = 5;
+    parameter LATENCY = 6;
     logic [10:0] div_pipe [0:LATENCY-1];
 
     always_ff @(posedge clock or posedge aclr) begin

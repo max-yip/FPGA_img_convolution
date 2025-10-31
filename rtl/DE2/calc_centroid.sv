@@ -31,18 +31,18 @@
 `timescale 1ns/1ps
 
 module calc_centroid #(
-    parameter int IMG_W      = 640,
-    parameter int IMG_H      = 480,
-    parameter int ROI_HEIGHT = 32,
-    parameter int THRESHOLD  = 0,
+    parameter int IMG_W       = 640,
+    parameter int IMG_H       = 480,
+    parameter int ROI_HEIGHT  = 32,
+    parameter int THRESHOLD   = 0,
     parameter int DIV_LATENCY = 6
 )(
     input  logic        clk,
     input  logic        rst,
     input  logic        in_ready,
     input  logic [3:0]  pixel_in,
-		
-	 output logic			out_ready,
+
+    output logic        out_ready,
     output logic [10:0] centroid_x,
     output logic        line_valid,
     output logic        line_lost
@@ -54,33 +54,33 @@ module calc_centroid #(
     logic [10:0] row_sum_x [0:ROI_HEIGHT-1];
     logic [9:0]  row_sum_p [0:ROI_HEIGHT-1];
 
-    logic [22:0] sum_x; //sum of all positions
-    logic [14:0] sum_p; //sum of all valid pixels
+    logic [22:0] sum_x;
+    logic [14:0] sum_p;
 
-    logic [10:0] centroid_x_reg; //centroid
-    logic [9:0]  pixel_count; //total pixel of the row
-    logic [5:0]  row_idx;   // current row index relative to the window
+    logic [10:0] centroid_x_reg;
+    logic [9:0]  pixel_count;
+    logic [5:0]  row_idx;
 
-    logic [22:0] current_row_sum_x; //in the current row, the sum of pixels positions
-    logic [14:0] current_row_sum_p; // in the current row, the amount of pixels
+    logic [22:0] current_row_sum_x;
+    logic [14:0] current_row_sum_p;
 
     // ============================================================
-    // Divider IP instantiation
+    // Divider IP
     // ============================================================
-    divide_verilator Udiv (
-        .aclr(rst),
+    divide_ip Udiv (
+        .aclr(1'b0),
         .clock(clk),
-        .numer(sum_p == 0 ? 0 : sum_x), //might need a reg if error
+        .numer(sum_p == 0 ? 0 : sum_x),
         .denom(sum_p == 0 ? 1 : sum_p),
         .quotient(centroid_x_reg)
     );
 
-    
-
-    
-    // pipeline registers for line_valid and line_lost
+    // ============================================================
+    // Pipeline registers for valid/lost/out_ready
+    // ============================================================
     logic [DIV_LATENCY-1:0] line_valid_pipe;
     logic [DIV_LATENCY-1:0] line_lost_pipe;
+    logic [DIV_LATENCY-1:0] out_ready_pipe;
 
     // ============================================================
     // Row-level accumulation
@@ -91,11 +91,11 @@ module calc_centroid #(
             row_idx            <= 0;
             current_row_sum_x  <= 0;
             current_row_sum_p  <= 0;
-				out_ready		 <= 0;
             sum_x              <= 0;
             sum_p              <= 0;
             line_valid_pipe    <= 0;
             line_lost_pipe     <= {DIV_LATENCY{1'b1}};
+            out_ready_pipe     <= 0;
             for (int i=0; i<ROI_HEIGHT; i++) begin
                 row_sum_x[i] <= 0;
                 row_sum_p[i] <= 0;
@@ -111,13 +111,12 @@ module calc_centroid #(
             end
 
             // -------------------------------
-            // advance pixel
+            // end of line handling
             // -------------------------------
-            if (pixel_count == IMG_W-1) begin //end of row, reset pixel count, store sum into row_sum
+            if (pixel_count == IMG_W-1) begin
                 pixel_count <= 0;
-					 
-					 out_ready <= 1;
 
+                // update rolling window sums
                 sum_x <= sum_x - row_sum_x[row_idx] + current_row_sum_x;
                 sum_p <= sum_p - row_sum_p[row_idx] + current_row_sum_p;
 
@@ -128,17 +127,16 @@ module calc_centroid #(
                 current_row_sum_p <= 0;
 
                 // safe circular index
-                if (row_idx == ROI_HEIGHT-1)
-                    row_idx <= 0;
-                else
-                    row_idx <= row_idx + 1;
+                row_idx <= (row_idx == ROI_HEIGHT-1) ? 0 : row_idx + 1;
 
-                // feed new valid/lost flag
+                // feed new flags
                 line_valid_pipe <= {line_valid_pipe[DIV_LATENCY-2:0], (sum_p > 0)};
                 line_lost_pipe  <= {line_lost_pipe[DIV_LATENCY-2:0], (sum_p == 0)};
+                out_ready_pipe  <= {out_ready_pipe[DIV_LATENCY-2:0], 1'b1}; // delay out_ready
             end
             else begin
                 pixel_count <= pixel_count + 1;
+                out_ready_pipe <= {out_ready_pipe[DIV_LATENCY-2:0], 1'b0};
             end
         end
     end
@@ -149,5 +147,7 @@ module calc_centroid #(
     assign centroid_x = centroid_x_reg;
     assign line_valid = line_valid_pipe[DIV_LATENCY-1];
     assign line_lost  = line_lost_pipe[DIV_LATENCY-1];
+    assign out_ready  = out_ready_pipe[DIV_LATENCY-1];
 
 endmodule
+

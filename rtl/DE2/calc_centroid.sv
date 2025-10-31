@@ -75,9 +75,6 @@ module calc_centroid #(
         .quotient(centroid_x_reg)
     );
 
-    
-
-    
     // pipeline registers for line_valid and line_lost
     logic [DIV_LATENCY-1:0] line_valid_pipe;
     logic [DIV_LATENCY-1:0] line_lost_pipe;

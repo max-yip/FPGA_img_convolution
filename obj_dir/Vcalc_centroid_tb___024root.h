@@ -43,9 +43,6 @@ class alignas(VL_CACHE_LINE_BYTES) Vcalc_centroid_tb___024root final : public Ve
         CData/*0:0*/ __Vtrigprevexpr___TOP__calc_centroid_tb__DOT__sys_reset__0;
         CData/*0:0*/ __VactContinue;
         SData/*11:0*/ calc_centroid_tb__DOT__video_data;
-        SData/*11:0*/ calc_centroid_tb__DOT__U6__DOT__gx;
-        SData/*11:0*/ calc_centroid_tb__DOT__U6__DOT__gy;
-        SData/*12:0*/ calc_centroid_tb__DOT__U6__DOT__mag;
         SData/*9:0*/ calc_centroid_tb__DOT__U6__DOT__col;
         SData/*14:0*/ calc_centroid_tb__DOT__U8__DOT__sum_p;
         SData/*9:0*/ calc_centroid_tb__DOT__U8__DOT__pixel_count;
@@ -56,11 +53,9 @@ class alignas(VL_CACHE_LINE_BYTES) Vcalc_centroid_tb___024root final : public Ve
         IData/*31:0*/ calc_centroid_tb__DOT__ppm_file;
         IData/*31:0*/ calc_centroid_tb__DOT__px_cnt;
         IData/*31:0*/ calc_centroid_tb__DOT__unnamedblk1__DOT__val;
-        IData/*22:0*/ calc_centroid_tb__DOT__U6__DOT__gx_s3;
-        IData/*22:0*/ calc_centroid_tb__DOT__U6__DOT__gy_s3;
-        IData/*22:0*/ calc_centroid_tb__DOT__U6__DOT__abs_gx;
-        IData/*22:0*/ calc_centroid_tb__DOT__U6__DOT__abs_gy;
-        IData/*23:0*/ calc_centroid_tb__DOT__U6__DOT__mag_s4;
+        IData/*17:0*/ calc_centroid_tb__DOT__U6__DOT__gx_s3;
+        IData/*17:0*/ calc_centroid_tb__DOT__U6__DOT__gy_s3;
+        IData/*18:0*/ calc_centroid_tb__DOT__U6__DOT__mag_s4;
         IData/*31:0*/ calc_centroid_tb__DOT__U6__DOT__unnamedblk1__DOT__i;
         IData/*31:0*/ calc_centroid_tb__DOT__U6__DOT__unnamedblk2__DOT__j;
         IData/*31:0*/ calc_centroid_tb__DOT__U6__DOT__unnamedblk3__DOT__i;
@@ -81,13 +76,13 @@ class alignas(VL_CACHE_LINE_BYTES) Vcalc_centroid_tb___024root final : public Ve
         VlUnpacked<CData/*3:0*/, 5> calc_centroid_tb__DOT__U6__DOT__shift_2;
         VlUnpacked<CData/*3:0*/, 5> calc_centroid_tb__DOT__U6__DOT__shift_3;
         VlUnpacked<CData/*3:0*/, 5> calc_centroid_tb__DOT__U6__DOT__shift_4;
+        VlUnpacked<SData/*15:0*/, 25> calc_centroid_tb__DOT__U6__DOT__gx_s1;
+        VlUnpacked<SData/*15:0*/, 25> calc_centroid_tb__DOT__U6__DOT__gy_s1;
+        VlUnpacked<IData/*16:0*/, 5> calc_centroid_tb__DOT__U6__DOT__gx_s2;
+        VlUnpacked<IData/*16:0*/, 5> calc_centroid_tb__DOT__U6__DOT__gy_s2;
+        VlUnpacked<SData/*10:0*/, 64> calc_centroid_tb__DOT__U8__DOT__row_sum_x;
     };
     struct {
-        VlUnpacked<IData/*20:0*/, 25> calc_centroid_tb__DOT__U6__DOT__gx_s1_ext;
-        VlUnpacked<IData/*20:0*/, 25> calc_centroid_tb__DOT__U6__DOT__gy_s1_ext;
-        VlUnpacked<IData/*21:0*/, 5> calc_centroid_tb__DOT__U6__DOT__gx_s2;
-        VlUnpacked<IData/*21:0*/, 5> calc_centroid_tb__DOT__U6__DOT__gy_s2;
-        VlUnpacked<SData/*10:0*/, 64> calc_centroid_tb__DOT__U8__DOT__row_sum_x;
         VlUnpacked<SData/*9:0*/, 64> calc_centroid_tb__DOT__U8__DOT__row_sum_p;
         VlUnpacked<SData/*10:0*/, 6> calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;

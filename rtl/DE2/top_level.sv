@@ -111,17 +111,17 @@ module top_level(
 		.out_ready(filtered_ready)
 	);
 	
-	logic [3:0] grey_data;
-	logic  		grey_ready;
-	
-	rgb_to_grey U5 (  				//DONE
-		 .clk(clk_video),
-		 .rst(sys_reset),
-		 .pixel_in(filtered_data),
-		 .pixel_out(grey_data),
-		 .in_ready(filtered_ready),
-	    .out_ready(grey_ready)
-	);
+//	logic [3:0] grey_data;
+//	logic  		grey_ready;
+//	
+//	rgb_to_grey U5 (  				//DONE
+//		 .clk(clk_video),
+//		 .rst(sys_reset),
+//		 .pixel_in(filtered_data),
+//		 .pixel_out(grey_data),
+//		 .in_ready(filtered_ready),
+//	    .out_ready(grey_ready)
+//	);
 	
 	logic [3:0] gaussian_data;
 	logic 		gaussian_ready;
@@ -131,29 +131,29 @@ module top_level(
 	) Udenoise (
 		.clk(clk_video),
 		.rst(sys_reset),
-		.pixel_in(grey_data),
+		.pixel_in(filtered_data),
 		.pixel_out(gaussian_data),
-		.in_ready(grey_ready),
+		.in_ready(filtered_ready),
 		.out_ready(gaussian_ready)
 	);
 
 	
 //	
-	logic [3:0] edge_data;
-	logic 		edge_ready;
-//	
-//	SOBEL DONE: currently output as 4bit Grey, 3x3 might be too noisy, 5x5 + denoise
-	edge_filter #(
-		.IMG_W(640),
-		.IMG_H(480)
-	) U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
-		 .clk(clk_video),
-		 .rst(sys_reset),
-		 .pixel_in(gaussian_data),
-		 .pixel_out(edge_data),
-		 .in_ready(gaussian_ready),
-		 .out_ready(edge_ready),
-	);
+//	logic [3:0] edge_data;
+//	logic 		edge_ready;
+////	
+////	SOBEL DONE: currently output as 4bit Grey, 3x3 might be too noisy, 5x5 + denoise
+//	edge_filter #(
+//		.IMG_W(640),
+//		.IMG_H(480)
+//	) U6 (	 // sobel + denoise after -> then threshold to 1bit greyscale
+//		 .clk(clk_video),
+//		 .rst(sys_reset),
+//		 .pixel_in(gaussian_data),
+//		 .pixel_out(edge_data),
+//		 .in_ready(gaussian_ready),
+//		 .out_ready(edge_ready),
+//	);
 //
 //	
 	logic [10:0] centroid_x;
@@ -169,8 +169,8 @@ module top_level(
     ) U8 (
          .clk(clk_video),
          .rst(sys_reset),
-         .pixel_in(edge_data),
-         .in_ready(edge_ready),
+         .pixel_in(gaussian_data),
+         .in_ready(gaussian_ready),
 			.out_ready(centroid_ready),
          .centroid_x(centroid_x),
          .line_valid(line_valid),
@@ -203,9 +203,9 @@ module top_level(
 	grey_to_rgb U9 ( 
 		 .clk(clk_video),
 		 .rst(sys_reset),
-		 .pixel_in(edge_data),
+		 .pixel_in(gaussian_data),
 		 .pixel_out(rgb_grey_pixel),
-		 .in_ready(edge_ready),
+		 .in_ready(gaussian_ready),
 		 .out_ready(rgb_ready)
 	);
 

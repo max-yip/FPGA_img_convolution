@@ -80,7 +80,7 @@ module calc_centroid #(
     // ============================================================
     // Divider IP
     // ============================================================
-    divide_verilator Udiv (
+    divide_ip Udiv (
         .aclr(rst),
         .clock(clk),
         .numer(sum_x_reg),

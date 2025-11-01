@@ -19,11 +19,12 @@ module top_level(
 	output logic        VGA_SYNC_N,
 	output logic        VGA_CLK,
 	output [6:0] HEX0,
-   output [6:0] HEX1,
-   output [6:0] HEX2,
-   output [6:0] HEX3,
+	output [6:0] HEX1,
+	output [6:0] HEX2,
+	output [6:0] HEX3,
 	output [7:0] LEDG,
 	output [17:0] LEDR,
+	input [17:0] SW,
 	
 	input logic [3:0] KEY
 
@@ -96,30 +97,29 @@ module top_level(
 	);
 	assign VGA_CLK = clk_video;
 	
-	//	
-//	logic [11:0] filtered_data;
-//	logic        filtered_ready;  // delayed valid (aligned with filtered_data)
-//
-//	color_filter U4 (
-//		.clk(clk_25_vga),
-//		.rst(sys_reset),
-//		.pixel_in(video_data),      // from image buffer
-//		.in_ready(vga_ready),       // original ready enters filter
-//		.veml_ready(veml_ready),
-//		.parcel_color(color_data),
-//		.pixel_out(filtered_data),  // processed pixel
-//		.out_ready(filtered_ready)  // delayed ready
-//	);
-//	
+		
+	logic [11:0] filtered_data;
+	logic        filtered_ready;  // delayed valid (aligned with filtered_data)
+
+	color_filter U4 (
+		.clk(clk_video),
+		.rst(sys_reset),
+		.pixel_in(video_data),
+		.in_ready(vga_ready),
+		.parcel_color(SW[2:0]),
+		.pixel_out(filtered_data),
+		.out_ready(filtered_ready)
+	);
+	
 	logic [3:0] grey_data;
 	logic  		grey_ready;
 	
 	rgb_to_grey U5 (  				//DONE
 		 .clk(clk_video),
 		 .rst(sys_reset),
-		 .pixel_in(video_data),
+		 .pixel_in(filtered_data),
 		 .pixel_out(grey_data),
-		 .in_ready(vga_ready),
+		 .in_ready(filtered_ready),
 	    .out_ready(grey_ready)
 	);
 	
@@ -208,7 +208,6 @@ module top_level(
 		 .in_ready(edge_ready),
 		 .out_ready(rgb_ready)
 	);
-//	
 
 	vga_driver U10(
 		 .clk(clk_video), 

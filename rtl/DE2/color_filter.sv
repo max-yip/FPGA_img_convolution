@@ -1,89 +1,65 @@
 module color_filter (
-    input clk,
-    input rst,
-    input [11:0] pixel_in,
-    input in_ready,
-    input veml_ready,
-    input parcel_color,
-    output [11:0] pixel_out,
-    output out_ready    
+    input  logic        clk,
+    input  logic        rst,
+    input  logic [11:0] pixel_in,
+    input  logic        in_ready,
+    input  logic [2:0]  parcel_color, // 0=none, 1=red, 2=green, 3=blue
+    output logic [11:0] pixel_out,
+    output logic        out_ready
 );
 
+logic [3:0] in_r, in_g, in_b;
+logic [3:0] out_r, out_g, out_b;
 
-// require finishing colour detector first
+// ---------------------------
+// Split input pixel channels
+// ---------------------------
+always_comb begin
+    if (in_ready) begin
+        in_r = pixel_in[11:8];
+        in_g = pixel_in[7:4];
+        in_b = pixel_in[3:0];
+    end
+    else begin
+        in_r = 4'b0;
+        in_g = 4'b0;
+        in_b = 4'b0;
+    end
+end
+
+// ---------------------------
+// Apply color filtering
+// ---------------------------
+always_comb begin
+    out_r = in_r;
+    out_g = in_g;
+    out_b = in_b;
+
+    unique case (parcel_color)
+        3'd1: begin // red
+            out_g = 4'b0;
+            out_b = 4'b0;
+        end
+        3'd2: begin // green
+            out_r = 4'b0;
+            out_b = 4'b0;
+        end
+        3'd3: begin // blue
+            out_r = 4'b0;
+            out_g = 4'b0;
+        end
+        default: begin // none
+            out_r = 4'b0;
+            out_g = 4'b0;
+            out_b = 4'b0;
+        end
+    endcase
+end
+
+// ---------------------------
+// Recombine into output pixel
+// ---------------------------
+assign pixel_out = {out_r, out_g, out_b};
+assign out_ready = in_ready;
 
 endmodule
-
-// module calc_centroid #(
-//     parameter IMG_W = 640,
-//     parameter IMG_H = 480
-// )(
-//     input  logic                     clk,
-//     input  logic                     rst,
-//     input  logic                     pixel_in,   // 1-bit greyscale / binary mask
-//     input  logic                     in_ready,   // 1 when pixel_in is valid
-//     input  logic                     frame_start,// asserted at start of a frame
-//     input  logic                     frame_end,  // asserted at end of frame
-//     output logic [$clog2(IMG_W):0]   centroid_x,
-//     output logic [$clog2(IMG_H):0]   centroid_y
-// );
-
-//     // Coordinate counters
-//     logic [$clog2(IMG_W)-1:0] x;
-//     logic [$clog2(IMG_H)-1:0] y;
-
-//     // Accumulators
-//     logic [$clog2(IMG_W*IMG_H*IMG_W)-1:0] sum_x; // large enough for max sum
-//     logic [$clog2(IMG_W*IMG_H*IMG_H)-1:0] sum_y;
-//     logic [$clog2(IMG_W*IMG_H):0]         count;
-
-//     // Frame scanning & accumulation
-//     always_ff @(posedge clk or posedge rst) begin
-//         if (rst) begin
-//             x <= 0;
-//             y <= 0;
-//             sum_x <= 0;
-//             sum_y <= 0;
-//             count <= 0;
-//         end else begin
-//             if (frame_start) begin
-//                 x <= 0;
-//                 y <= 0;
-//                 sum_x <= 0;
-//                 sum_y <= 0;
-//                 count <= 0;
-//             end
-
-//             if (in_ready) begin
-//                 // If pixel is active, accumulate
-//                 if (pixel_in) begin
-//                     sum_x <= sum_x + x;
-//                     sum_y <= sum_y + y;
-//                     count <= count + 1;
-//                 end
-
-//                 // Update x/y
-//                 if (x == IMG_W-1) begin
-//                     x <= 0;
-//                     if (y != IMG_H-1) y <= y + 1;
-//                 end else begin
-//                     x <= x + 1;
-//                 end
-//             end
-//         end
-//     end
-
-//     // Output centroid at frame end
-//     always_ff @(posedge clk) begin
-//         if (frame_end) begin
-//             if (count != 0) begin
-//                 centroid_x <= sum_x / count;
-//                 centroid_y <= sum_y / count;
-//             end else begin
-//                 centroid_x <= 0;
-//                 centroid_y <= 0;
-//             end
-//         end
-//     end
-
-// endmodule

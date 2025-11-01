@@ -80,7 +80,7 @@ module calc_centroid #(
     // ============================================================
     // Divider IP
     // ============================================================
-    divide_ip Udiv (
+    divide_verilator Udiv (
         .aclr(rst),
         .clock(clk),
         .numer(sum_x_reg),
@@ -122,8 +122,8 @@ module calc_centroid #(
                 out_ready   <= 1; // one-cycle pulse
 
                 // calculate new rolling sum
-					 new_sum_x = sum_x - row_sum_x[row_idx] + current_row_sum_x;
-                new_sum_p = sum_p - row_sum_p[row_idx] + current_row_sum_p;
+				new_sum_x <= sum_x - row_sum_x[row_idx] + current_row_sum_x;
+                new_sum_p <= sum_p - row_sum_p[row_idx] + current_row_sum_p;
 
                 sum_x <= new_sum_x;
                 sum_p <= new_sum_p;

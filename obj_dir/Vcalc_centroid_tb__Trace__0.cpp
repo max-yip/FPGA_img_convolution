@@ -25,7 +25,7 @@ void Vcalc_centroid_tb___024root__trace_chg_0_sub_0(Vcalc_centroid_tb___024root*
     // Body
     if (VL_UNLIKELY((vlSelfRef.__Vm_traceActivity[1U]))) {
         bufp->chgCData(oldp+0,((0xfU & (vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag_s4 
-                                        >> 8U))),4);
+                                        >> 0xbU))),4);
         bufp->chgBit(oldp+1,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__valid_s4));
         bufp->chgSData(oldp+2,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe
                                [5U]),11);
@@ -33,13 +33,15 @@ void Vcalc_centroid_tb___024root__trace_chg_0_sub_0(Vcalc_centroid_tb___024root*
                                     >> 5U))));
         bufp->chgBit(oldp+4,((1U & ((IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_lost_pipe) 
                                     >> 5U))));
-        bufp->chgSData(oldp+5,((0xfffU & ((0xf00U & vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag_s4) 
+        bufp->chgSData(oldp+5,((0xfffU & ((0xf00U & 
+                                           (vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag_s4 
+                                            >> 3U)) 
                                           | ((0xf0U 
                                               & (vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag_s4 
-                                                 >> 4U)) 
+                                                 >> 7U)) 
                                              | (0xfU 
                                                 & (vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag_s4 
-                                                   >> 8U)))))),12);
+                                                   >> 0xbU)))))),12);
         bufp->chgBit(oldp+6,(vlSelfRef.calc_centroid_tb__DOT__centroid_ready));
         bufp->chgSData(oldp+7,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__col),10);
         bufp->chgCData(oldp+8,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__shift_0[0]),4);
@@ -70,7 +72,7 @@ void Vcalc_centroid_tb___024root__trace_chg_0_sub_0(Vcalc_centroid_tb___024root*
         bufp->chgBit(oldp+33,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__valid_s1));
         bufp->chgBit(oldp+34,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__valid_s2));
         bufp->chgBit(oldp+35,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__valid_s3));
-        bufp->chgSData(oldp+36,((0x1fffU & vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag_s4)),13);
+        bufp->chgSData(oldp+36,((0x7fffU & vlSelfRef.calc_centroid_tb__DOT__U6__DOT__mag_s4)),15);
         bufp->chgSData(oldp+37,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__gx_s1[0]),16);
         bufp->chgSData(oldp+38,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__gx_s1[1]),16);
         bufp->chgSData(oldp+39,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__gx_s1[2]),16);
@@ -138,44 +140,49 @@ void Vcalc_centroid_tb___024root__trace_chg_0_sub_0(Vcalc_centroid_tb___024root*
         bufp->chgIData(oldp+101,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__unnamedblk2__DOT__j),32);
         bufp->chgIData(oldp+102,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__unnamedblk3__DOT__i),32);
         bufp->chgIData(oldp+103,(vlSelfRef.calc_centroid_tb__DOT__U6__DOT__unnamedblk4__DOT__i),32);
-        bufp->chgIData(oldp+104,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x),23);
-        bufp->chgSData(oldp+105,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p),15);
-        bufp->chgSData(oldp+106,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__pixel_count),10);
+        bufp->chgIData(oldp+104,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x),24);
+        bufp->chgSData(oldp+105,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p),16);
+        bufp->chgSData(oldp+106,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__pixel_count),11);
         bufp->chgCData(oldp+107,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__row_idx),6);
-        bufp->chgIData(oldp+108,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__current_row_sum_x),23);
-        bufp->chgSData(oldp+109,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__current_row_sum_p),15);
-        bufp->chgCData(oldp+110,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_valid_pipe),6);
-        bufp->chgCData(oldp+111,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_lost_pipe),6);
-        bufp->chgIData(oldp+112,(((0U == (IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p))
-                                   ? 0U : vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x)),23);
-        bufp->chgSData(oldp+113,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT____Vcellinp__Udiv__denom),15);
-        bufp->chgSData(oldp+114,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[0]),11);
-        bufp->chgSData(oldp+115,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[1]),11);
-        bufp->chgSData(oldp+116,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[2]),11);
-        bufp->chgSData(oldp+117,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[3]),11);
-        bufp->chgSData(oldp+118,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[4]),11);
-        bufp->chgSData(oldp+119,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[5]),11);
-        bufp->chgIData(oldp+120,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk1__DOT__i),32);
-        bufp->chgIData(oldp+121,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk2__DOT__i),32);
-        bufp->chgIData(oldp+122,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__unnamedblk1__DOT__i),32);
+        bufp->chgSData(oldp+108,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__current_row_sum_x),16);
+        bufp->chgSData(oldp+109,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__current_row_sum_p),11);
+        bufp->chgIData(oldp+110,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x_reg),24);
+        bufp->chgSData(oldp+111,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p_reg),16);
+        bufp->chgCData(oldp+112,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_valid_pipe),6);
+        bufp->chgCData(oldp+113,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__line_lost_pipe),6);
+        bufp->chgIData(oldp+114,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe
+                                 [5U]),24);
+        bufp->chgIData(oldp+115,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__new_sum_x),24);
+        bufp->chgSData(oldp+116,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__new_sum_p),16);
+        bufp->chgIData(oldp+117,((0x7fffffU & vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_x_reg)),23);
+        bufp->chgSData(oldp+118,((0x7fffU & (IData)(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__sum_p_reg))),15);
+        bufp->chgSData(oldp+119,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[0]),11);
+        bufp->chgSData(oldp+120,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[1]),11);
+        bufp->chgSData(oldp+121,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[2]),11);
+        bufp->chgSData(oldp+122,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[3]),11);
+        bufp->chgSData(oldp+123,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[4]),11);
+        bufp->chgSData(oldp+124,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__div_pipe[5]),11);
+        bufp->chgIData(oldp+125,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk1__DOT__i),32);
+        bufp->chgIData(oldp+126,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__Udiv__DOT__unnamedblk2__DOT__i),32);
+        bufp->chgIData(oldp+127,(vlSelfRef.calc_centroid_tb__DOT__U8__DOT__unnamedblk1__DOT__i),32);
     }
     if (VL_UNLIKELY((vlSelfRef.__Vm_traceActivity[2U]))) {
-        bufp->chgSData(oldp+123,(vlSelfRef.calc_centroid_tb__DOT__video_data),12);
-        bufp->chgCData(oldp+124,(vlSelfRef.calc_centroid_tb__DOT__grey_data),4);
-        bufp->chgCData(oldp+125,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
+        bufp->chgSData(oldp+128,(vlSelfRef.calc_centroid_tb__DOT__video_data),12);
+        bufp->chgCData(oldp+129,(vlSelfRef.calc_centroid_tb__DOT__grey_data),4);
+        bufp->chgCData(oldp+130,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
                                           >> 8U))),4);
-        bufp->chgCData(oldp+126,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
+        bufp->chgCData(oldp+131,((0xfU & ((IData)(vlSelfRef.calc_centroid_tb__DOT__video_data) 
                                           >> 4U))),4);
-        bufp->chgCData(oldp+127,((0xfU & (IData)(vlSelfRef.calc_centroid_tb__DOT__video_data))),4);
-        bufp->chgCData(oldp+128,(vlSelfRef.calc_centroid_tb__DOT__U5__DOT__gray_temp),8);
+        bufp->chgCData(oldp+132,((0xfU & (IData)(vlSelfRef.calc_centroid_tb__DOT__video_data))),4);
+        bufp->chgCData(oldp+133,(vlSelfRef.calc_centroid_tb__DOT__U5__DOT__gray_temp),8);
     }
-    bufp->chgBit(oldp+129,(vlSelfRef.calc_centroid_tb__DOT__clk_video));
-    bufp->chgBit(oldp+130,(vlSelfRef.calc_centroid_tb__DOT__sys_reset));
-    bufp->chgBit(oldp+131,(vlSelfRef.calc_centroid_tb__DOT__vga_ready));
-    bufp->chgIData(oldp+132,(vlSelfRef.calc_centroid_tb__DOT__i),32);
-    bufp->chgIData(oldp+133,(vlSelfRef.calc_centroid_tb__DOT__ppm_file),32);
-    bufp->chgIData(oldp+134,(vlSelfRef.calc_centroid_tb__DOT__px_cnt),32);
-    bufp->chgIData(oldp+135,(vlSelfRef.calc_centroid_tb__DOT__unnamedblk1__DOT__val),32);
+    bufp->chgBit(oldp+134,(vlSelfRef.calc_centroid_tb__DOT__clk_video));
+    bufp->chgBit(oldp+135,(vlSelfRef.calc_centroid_tb__DOT__sys_reset));
+    bufp->chgBit(oldp+136,(vlSelfRef.calc_centroid_tb__DOT__vga_ready));
+    bufp->chgIData(oldp+137,(vlSelfRef.calc_centroid_tb__DOT__i),32);
+    bufp->chgIData(oldp+138,(vlSelfRef.calc_centroid_tb__DOT__ppm_file),32);
+    bufp->chgIData(oldp+139,(vlSelfRef.calc_centroid_tb__DOT__px_cnt),32);
+    bufp->chgIData(oldp+140,(vlSelfRef.calc_centroid_tb__DOT__unnamedblk1__DOT__val),32);
 }
 
 void Vcalc_centroid_tb___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {

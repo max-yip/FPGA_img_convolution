@@ -28,6 +28,7 @@
 //   line_valid : 1-cycle pulse when centroid_x updated (frame end)
 //   line_lost  : high when no pixels found in ROI
 //
+
 `timescale 1ns/1ps
 
 module calc_centroid #(
@@ -42,7 +43,7 @@ module calc_centroid #(
     input  logic        in_ready,
     input  logic [3:0]  pixel_in,
 		
-	 output logic			out_ready,
+    output logic        out_ready,
     output logic [10:0] centroid_x,
     output logic        line_valid,
     output logic        line_lost
@@ -51,100 +52,239 @@ module calc_centroid #(
     // ============================================================
     // Internal signals
     // ============================================================
-    logic [10:0] row_sum_x [0:ROI_HEIGHT-1];
-    logic [9:0]  row_sum_p [0:ROI_HEIGHT-1];
+    logic [15:0] row_sum_x [0:ROI_HEIGHT-1];
+    logic [10:0] row_sum_p [0:ROI_HEIGHT-1];
 
-    logic [22:0] sum_x; //sum of all positions
-    logic [14:0] sum_p; //sum of all valid pixels
+    logic [23:0] sum_x;  // sum over ROI window
+    logic [15:0] sum_p;
 
-    logic [10:0] centroid_x_reg; //centroid
-    logic [9:0]  pixel_count; //total pixel of the row
-    logic [5:0]  row_idx;   // current row index relative to the window
+    logic [10:0] pixel_count; // pixel index in row
+    logic [5:0]  row_idx;     // circular buffer index
 
-    logic [22:0] current_row_sum_x; //in the current row, the sum of pixels positions
-    logic [14:0] current_row_sum_p; // in the current row, the amount of pixels
+    logic [15:0] current_row_sum_x;
+    logic [10:0] current_row_sum_p;
 
-    // ============================================================
-    // Divider IP instantiation
-    // ============================================================
-    divide_verilator Udiv (
-        .aclr(rst),
-        .clock(clk),
-        .numer(sum_p == 0 ? 0 : sum_x), //might need a reg if error
-        .denom(sum_p == 0 ? 1 : sum_p),
-        .quotient(centroid_x_reg)
-    );
+    // registered divider inputs
+    logic [23:0] sum_x_reg;
+    logic [15:0] sum_p_reg;
 
-    // pipeline registers for line_valid and line_lost
+    // pipeline registers for line_valid / line_lost
     logic [DIV_LATENCY-1:0] line_valid_pipe;
     logic [DIV_LATENCY-1:0] line_lost_pipe;
+
+    logic [23:0] centroid_x_reg; //23 as the quotient length
+	 
+	 logic [23:0] new_sum_x;
+	 logic [15:0] new_sum_p;
+
+    // ============================================================
+    // Divider IP
+    // ============================================================
+    divide_ip Udiv (
+        .aclr(rst),
+        .clock(clk),
+        .numer(sum_x_reg),
+        .denom(sum_p_reg),
+        .quotient(centroid_x_reg)
+    );
 
     // ============================================================
     // Row-level accumulation
     // ============================================================
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
-            pixel_count        <= 0;
-            row_idx            <= 0;
-            current_row_sum_x  <= 0;
-            current_row_sum_p  <= 0;
-				out_ready		 <= 0;
-            sum_x              <= 0;
-            sum_p              <= 0;
-            line_valid_pipe    <= 0;
-            line_lost_pipe     <= {DIV_LATENCY{1'b1}};
-            for (int i=0; i<ROI_HEIGHT; i++) begin
+            pixel_count       <= 0;
+            row_idx           <= 0;
+            current_row_sum_x <= 0;
+            current_row_sum_p <= 0;
+            sum_x             <= 0;
+            sum_p             <= 0;
+            sum_x_reg         <= 0;
+            sum_p_reg         <= 1;
+            out_ready         <= 0;
+            line_valid_pipe   <= 0;
+            line_lost_pipe    <= 0;
+            for (int i = 0; i < ROI_HEIGHT; i++) begin
                 row_sum_x[i] <= 0;
                 row_sum_p[i] <= 0;
             end
         end
         else if (in_ready) begin
-            // -------------------------------
-            // accumulate current row
-            // -------------------------------
+            // accumulate pixels in current row
             if (pixel_in > THRESHOLD) begin
                 current_row_sum_x <= current_row_sum_x + pixel_count;
                 current_row_sum_p <= current_row_sum_p + 1;
             end
 
-            // -------------------------------
-            // advance pixel
-            // -------------------------------
-            if (pixel_count == IMG_W-1) begin //end of row, reset pixel count, store sum into row_sum
+            // end of row
+            if (pixel_count == IMG_W-1) begin
                 pixel_count <= 0;
-					 
-					 out_ready <= 1;
+                out_ready   <= 1; // one-cycle pulse
 
-                sum_x <= sum_x - row_sum_x[row_idx] + current_row_sum_x;
-                sum_p <= sum_p - row_sum_p[row_idx] + current_row_sum_p;
+                // calculate new rolling sum
+					 new_sum_x = sum_x - row_sum_x[row_idx] + current_row_sum_x;
+                new_sum_p = sum_p - row_sum_p[row_idx] + current_row_sum_p;
 
+                sum_x <= new_sum_x;
+                sum_p <= new_sum_p;
+
+                // update circular buffer
                 row_sum_x[row_idx] <= current_row_sum_x;
                 row_sum_p[row_idx] <= current_row_sum_p;
 
+                // reset current row accumulators
                 current_row_sum_x <= 0;
                 current_row_sum_p <= 0;
 
-                // safe circular index
-                if (row_idx == ROI_HEIGHT-1)
-                    row_idx <= 0;
-                else
-                    row_idx <= row_idx + 1;
+                // advance row index
+                row_idx <= (row_idx == ROI_HEIGHT-1) ? 0 : row_idx + 1;
 
-                // feed new valid/lost flag
-                line_valid_pipe <= {line_valid_pipe[DIV_LATENCY-2:0], (sum_p > 0)};
-                line_lost_pipe  <= {line_lost_pipe[DIV_LATENCY-2:0], (sum_p == 0)};
+                // update line_valid / line_lost pipeline
+                line_valid_pipe <= {line_valid_pipe[DIV_LATENCY-2:0], (new_sum_p > 0)};
+                line_lost_pipe  <= {line_lost_pipe[DIV_LATENCY-2:0], (new_sum_p == 0)};
+
+                // register divider inputs
+                sum_x_reg <= (new_sum_p == 0) ? 0 : new_sum_x;
+                sum_p_reg <= (new_sum_p == 0) ? 1 : new_sum_p;
+
             end
             else begin
                 pixel_count <= pixel_count + 1;
+                out_ready   <= 0;
             end
+        end
+        else begin
+            pixel_count <= 0;
+            out_ready   <= 0;
         end
     end
 
     // ============================================================
     // Output assignments
     // ============================================================
-    assign centroid_x = centroid_x_reg;
+    assign centroid_x = centroid_x_reg[10:0];
     assign line_valid = line_valid_pipe[DIV_LATENCY-1];
     assign line_lost  = line_lost_pipe[DIV_LATENCY-1];
 
 endmodule
+
+//`timescale 1ns/1ps
+//
+//module calc_centroid #(
+//    parameter int IMG_W      = 640,
+//    parameter int IMG_H      = 480,
+//    parameter int ROI_HEIGHT = 32,
+//    parameter int THRESHOLD  = 0,
+//    parameter int DIV_LATENCY = 6
+//)(
+//    input  logic        clk,
+//    input  logic        rst,
+//    input  logic        in_ready,
+//    input  logic [3:0]  pixel_in,
+//		
+//	 output logic			out_ready,
+//    output logic [10:0] centroid_x,
+//    output logic        line_valid,
+//    output logic        line_lost
+//);
+//
+//    // ============================================================
+//    // Internal signals
+//    // ============================================================
+//    logic [10:0] row_sum_x [0:ROI_HEIGHT-1];
+//    logic [9:0]  row_sum_p [0:ROI_HEIGHT-1];
+//
+//    logic [22:0] sum_x; //sum of all positions
+//    logic [14:0] sum_p; //sum of all valid pixels
+//
+//    logic [10:0] centroid_x_reg; //centroid
+//    logic [9:0]  pixel_count; //total pixel of the row
+//    logic [5:0]  row_idx;   // current row index relative to the window
+//
+//    logic [22:0] current_row_sum_x; //in the current row, the sum of pixels positions
+//    logic [14:0] current_row_sum_p; // in the current row, the amount of pixels
+//
+//    // ============================================================
+//    // Divider IP instantiation
+//    // ============================================================
+//    divide_ip Udiv (
+//        .aclr(rst),
+//        .clock(clk),
+//        .numer(sum_p == 0 ? 0 : sum_x), //might need a reg if error
+//        .denom(sum_p == 0 ? 1 : sum_p),
+//        .quotient(centroid_x_reg)
+//    );
+//
+//    // pipeline registers for line_valid and line_lost
+//    logic [DIV_LATENCY-1:0] line_valid_pipe;
+//    logic [DIV_LATENCY-1:0] line_lost_pipe;
+//
+//    // ============================================================
+//    // Row-level accumulation
+//    // ============================================================
+//    always_ff @(posedge clk or posedge rst) begin
+//        if (rst) begin
+//            pixel_count        <= 0;
+//            row_idx            <= 0;
+//            current_row_sum_x  <= 0;
+//            current_row_sum_p  <= 0;
+//				out_ready		 <= 0;
+//            sum_x              <= 0;
+//            sum_p              <= 0;
+//            line_valid_pipe    <= 0;
+//            line_lost_pipe     <= {DIV_LATENCY{1'b1}};
+//            for (int i=0; i<ROI_HEIGHT; i++) begin
+//                row_sum_x[i] <= 0;
+//                row_sum_p[i] <= 0;
+//            end
+//        end
+//        else if (in_ready) begin
+//            // -------------------------------
+//            // accumulate current row
+//            // -------------------------------
+//            if (pixel_in > THRESHOLD) begin
+//                current_row_sum_x <= current_row_sum_x + pixel_count;
+//                current_row_sum_p <= current_row_sum_p + 1;
+//            end
+//
+//            // -------------------------------
+//            // advance pixel
+//            // -------------------------------
+//            if (pixel_count == IMG_W-1) begin //end of row, reset pixel count, store sum into row_sum
+//                pixel_count <= 0;
+//					 
+//					 out_ready <= 1;
+//
+//                sum_x <= sum_x - row_sum_x[row_idx] + current_row_sum_x;
+//                sum_p <= sum_p - row_sum_p[row_idx] + current_row_sum_p;
+//
+//                row_sum_x[row_idx] <= current_row_sum_x;
+//                row_sum_p[row_idx] <= current_row_sum_p;
+//
+//                current_row_sum_x <= 0;
+//                current_row_sum_p <= 0;
+//
+//                // safe circular index
+//                if (row_idx == ROI_HEIGHT-1)
+//                    row_idx <= 0;
+//                else
+//                    row_idx <= row_idx + 1;
+//
+//                // feed new valid/lost flag
+//                line_valid_pipe <= {line_valid_pipe[DIV_LATENCY-2:0], (sum_p > 0)};
+//                line_lost_pipe  <= {line_lost_pipe[DIV_LATENCY-2:0], (sum_p == 0)};
+//            end
+//            else begin
+//                pixel_count <= pixel_count + 1;
+//            end
+//        end
+//    end
+//
+//    // ============================================================
+//    // Output assignments
+//    // ============================================================
+//    assign centroid_x = centroid_x_reg;
+//    assign line_valid = line_valid_pipe[DIV_LATENCY-1];
+//    assign line_lost  = line_lost_pipe[DIV_LATENCY-1];
+//
+//endmodule

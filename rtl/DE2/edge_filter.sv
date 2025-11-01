@@ -113,7 +113,7 @@ logic  valid_s1, valid_s2, valid_s3, valid_s4; // one valid bit per pipeline sta
 // ---------------------------------------------------------
 //  Internal signals
 // ---------------------------------------------------------
-logic [12:0] uns_mag;
+logic [14:0] uns_mag;
 
 // use explicit col width
 logic signed [15:0] gx_s1 [0:24];
@@ -227,7 +227,7 @@ end
 
 // ---------- output scaling & out_ready ----------
 assign uns_mag   = $unsigned(mag_s4);        // ensure width large enough
-assign pixel_out = uns_mag[11:8];            // adjust slice as needed
+assign pixel_out = uns_mag[14:11];            // adjust slice as needed
 assign out_ready = valid_s4;
 
 endmodule
